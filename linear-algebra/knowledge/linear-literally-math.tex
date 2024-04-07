@@ -1,0 +1,2347 @@
+\documentclass[UTF8, 12pt]{ctexart}
+% UTF8编码，ctexart现实中文
+\usepackage{color}
+% 使用颜色
+\definecolor{orange}{RGB}{255,127,0}
+\definecolor{violet}{RGB}{192,0,255}
+\definecolor{aqua}{RGB}{0,255,255}
+\usepackage{geometry}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+% 设置四级目录与标题
+\geometry{papersize={21cm,29.7cm}}
+% 默认大小为A4
+\geometry{left=3.18cm,right=3.18cm,top=2.54cm,bottom=2.54cm}
+% 默认页边距为1英尺与1.25英尺
+\usepackage{indentfirst}
+\setlength{\parindent}{2.45em}
+% 首行缩进2个中文字符
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.5}
+% 1.5倍行距
+\usepackage{amssymb}
+% 因为所以
+\usepackage{amsmath}
+% 数学公式
+\usepackage[colorlinks,linkcolor=black,urlcolor=blue]{hyperref}
+% 超链接
+\usepackage{multicol}
+% 分栏
+\usepackage{rotating}
+% 用于旋转对象（旋转包）
+\author{春江花朝秋月夜}
+
+\title{行列式}
+\date{}
+\begin{document}
+    \maketitle
+    \pagestyle{empty}
+    \thispagestyle{empty}
+    \tableofcontents
+    \thispagestyle{empty}
+    \newpage
+    \pagestyle{plain}
+    \setcounter{page}{1}
+
+    \section{行列式概念}
+    高数研究连续的问题，而代数研究离散的问题。
+    行列式本质是研究线性方程组的问题。行列式本质是一个数，必须是一个长宽相等的形式。
+    \subsection{低阶行列式}
+
+    若对于一个一阶行列式，就是$\vert a_11\vert$来表示，这个就是一个数。
+
+    若要解一个二元一次方程组：
+
+    $\begin{cases}
+         a_1x+b_1y=c_1 (1) \\
+         a_2x+b_2y=c_2 (2)
+    \end{cases}
+    $
+
+    则利用$(1)\times b_2-(2)\times b_1=(a_1b_2-a_2b_1)x=c_1b_2-c_2b_1$。
+
+    $(1)\times a_2-(2)\times a_1=(a_2b_1-a_1b_2)y=c_1a_2-c_2a_1$。
+
+    根据系数形式可以得到一个二阶行列式：
+
+    $
+    \left|\begin{array}{cc}
+              a & b \\
+              c & d
+    \end{array}\right|
+    =ad-bc$。
+
+    而二阶行列式的几何意义是指由两个二维向量组成的，结果为这两个向量为邻边的平行四边形的面积。行列式的一行或一列就是一个向量。
+
+    同理解三元一次方程组可得三阶行列式：
+
+    $
+    \left|\begin{array}{ccc}
+              a_{11} & a_{12} & a_{13} \\
+              a_{21} & a_{22} & a_{23} \\
+              a_{31} & a_{32} & a_{33}
+    \end{array}\right|
+    =a_{11}a_{22}a_{33}+a_{12}a_{23}a_{31}+a_{13}a_{21}a_{32}-a_{13}a_{22}a_{31}-a_{11}a_{23}a_{32}+a_{12}a_{21}a_{33}$。
+
+    三阶行列式的几何意义就是由三个向量为邻边所构成的平行六面体的体积。
+
+    行列式是一个数，是不同行不同列元素乘积的代数和。
+
+    横排为\textbf{行}，竖排为\textbf{列}，数$a_{ij}$为\textbf{元素}或\textbf{元}，第一个下标$i$为\textbf{行标}，第二个下标$j$为\textbf{列标}。
+
+    对角线法则\textcolor{violet}{\textbf{定义：}}二阶三阶行列式的值就是所有左对角线的值减去所有右对角线的值。
+
+    \subsection{排列、逆序、逆序数}
+
+    由$1,2,\cdots,n$任意组成的有序数组称为一个$n$阶排列（\textbf{全排列}），通常用$j_1j_2\cdots j_n$表示$n$阶排列。如9 5 4 7就是一个4阶排列。
+
+    一个排列中，若一个大的数排在一个小的数的前面，就称为这两个数构成一个\textbf{逆序}。如9 5 4 7的9和4就构成一个逆序。
+
+    \textcolor{violet}{\textbf{定义：}}一个排列的逆序的总数称为这个排列的逆序数，用$\tau(j_1j_2\cdots j_n)$表示排列$j_1j_2\cdots j_n$的逆序数。如9 5 4 7有逆序9-5，9-4，9-7，5-4四个逆序，逆序数为4。
+
+    若一个排列的逆序数是偶数，则这个排列是\textbf{偶排列}，否则称为\textbf{奇排列}。如9 5 4 7是偶排列。
+
+    若是1 2 $\cdots$ n按序排列，称为这个排列为自然排列，逆序数为0，是偶排列。
+
+    \textcolor{violet}{\textbf{定义：}}将任意两个元素对调，其他元素不动就是对换，若这两个元素相邻则是相邻对换。
+
+    \textcolor{aqua}{\textbf{定理：}}一个排列中任意两个元素对换，排列奇偶性变化。
+
+    \textcolor{aqua}{\textbf{定理：}}奇排列对换成标准排列（一般为自然排列）的对换次数为奇数，偶排列的对换次数为偶数。
+
+    \subsection{n阶行列式}
+
+    $
+    \left|\begin{array}{cccc}
+              a_{11} & a_{12} & \cdots & a_{1n} \\
+              a_{21} & a_{22} & \cdots & a_{2n} \\
+              \vdots & \vdots & \ddots & \vdots \\
+              a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{array}\right|
+    =\sum\limits_{j_1j_2\cdots j_n}(-1)^{\tau(j_1j_2\cdots j_n)}a_{1j_1}a_{2j_2}\cdots a_{nj_n}$。
+
+    即在$n$行每一行都取一个不同于之前取的列的数相乘，把所有的乘积相加起来，其每个项的正负号由其列号序列的逆序数决定。一共有$n!$个项相加减。
+
+    从几何意义来看就是由$n$个$n$维向量：
+
+    $\alpha_1=[a_{11},a_{12},\cdots,a_{1n}]$，$\alpha_2=[a_{21},a_{22},\cdots,a_{2n}]$，$\cdots$，$\alpha_n=[a_{n1},a_{n2},\cdots,a_{nn}]$为邻边的$n$维图形体积。
+
+    从而行列式的值$D$，若$D\neq0$则行列式的三个向量称为线性无关，体积就不是0，否则线性相关，即两条线重叠，体积为0。
+
+    \subsection{特殊行列式}
+
+    \subsubsection{主对角线行列式}
+
+    $\left|\begin{array}{cccc}
+               a_{11} & a_{12} & \cdots & a_{1n} \\
+               & \ddots & \cdots & a_{2n} \\
+               & & \ddots & \vdots  \\
+               & & & a_{nn}
+    \end{array}\right|=
+    \left|\begin{array}{cccc}
+              a_{11} & & & \\
+              a_{21} & \ddots & & \\
+              \vdots & \cdots & \ddots &  \\
+              a_{n1} & a_{n2} & \cdots & a_{nn}
+    \end{array}\right|=
+    \left|\begin{array}{cccc}
+              a_{11} & & & \\
+              & \ddots & & \\
+              & & \ddots &  \\
+              & & & a_{nn}
+    \end{array}\right|=a_{11}\cdots a_{nn}$
+
+    上三角行列式：包括主对角线的右上部分元素不全为0，左下部分元素全为0。
+
+    下三角行列式：包括主对角线的左下部分元素不全为0，右上部分元素全为0。
+
+    对角行列式：省略号处的元素不全为0，其他主对角线外的元素全为0。
+
+    \subsubsection{副对角线行列式}
+
+    $\left|\begin{array}{cccc}
+               & & & a_{1n} \\
+               & & \begin{turn}{80}$\ddots$\end{turn} & a_{2n} \\
+&  \begin{turn}{80}$\ddots$\end{turn} & \cdots & \vdots  \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|=
+\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & \cdots & \begin{turn}{80}$\ddots$\end{turn} & \\
+\vdots & \begin{turn}{80}$\ddots$\end{turn} & & \\
+a_{n1} & & &
+\end{array}\right|=
+\left|\begin{array}{cccc}
+& & & a_{1n} \\
+& & \begin{turn}{80}$\ddots$\end{turn} & \\
+& \begin{turn}{80}$\ddots$\end{turn} & & \\
+a_{n1} & & &
+\end{array}\right|=(-1)^{\frac{n(n-1)}{2}}a_{1n}\cdots a_{n1}$
+
+可以从第$n$行开始向上相邻对换$n-1$次到达第$1$层，依此类推，反下三角可以对换成上三角行列式，对换次数为$(n-1),(n-2),\cdots,1$一共$\dfrac{n(n-1)}{2}$次，反上三角行列式也同理。
+
+\subsubsection{范德蒙德行列式}
+
+\begin{multicols}{2}
+
+$\left|\begin{array}{cccc}
+1 & 1 & \cdots & 1 \\
+a_1 & a_2  & \cdots & a_n \\
+\cdots & \cdots & \vdots & \cdots \\
+a_1^{n-1} & a_2^{n-1} & \cdots & a_n^{n-1} \\
+\end{array}\right|$
+
+范德蒙德行列式：元素连乘，结果为$\prod\limits_{1\leqslant j<i\leqslant n}(a_i-a_j)$。
+若一个四阶范德蒙德行列式的结果为$(a_4-a_1)(a_4-a_2)(a_4-a_3)(a_3-a_1)(a_3-a_2)(a_2-a_1)$。
+
+\end{multicols}
+
+若一个范德蒙德行列式不等于0，则其每个元素$a_1a_2\cdots a_n$两两不等。
+
+\subsubsection{爪形行列式}
+
+$\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & \ddots & & \\
+\vdots & & \ddots &  \\
+a_{n1} & & & a_{nn}
+\end{array}\right|$，$
+\left|\begin{array}{cccc}
+a_{11} & & & a_{1n} \\
+a_{21} & & \begin{turn}{80}$\ddots$\end{turn} & \\
+\vdots & \begin{turn}{80}$\ddots$\end{turn} & &  \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|$，$
+\left|\begin{array}{cccc}
+a_{11} & & & a_{1n} \\
+& \ddots & & a_{2n} \\
+& & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|$，
+
+$
+\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+& & \begin{turn}{80}$\ddots$\end{turn} & a_{2n} \\
+& \begin{turn}{80}$\ddots$\end{turn} & & \vdots \\
+a_{n1} & & & a_{nn}
+\end{array}\right|$。
+
+\subsubsection{分块行列式}
+
+$\left|\begin{array}{cc}
+A & O \\
+O & B
+\end{array}\right|=
+\left|\begin{array}{cc}
+A & * \\
+O & B
+\end{array}\right|=
+\left|\begin{array}{cc}
+A & O \\
+* & B
+\end{array}\right|=\vert A\vert\cdot\vert B\vert$。
+
+\section{行列式性质}
+
+拉普拉斯法则\textcolor{violet}{\textbf{定义：}}$A_{n\times n}$，$B_{n\times n}$，则$\vert AB\vert=\vert A\vert\cdot\vert B\vert$。
+
+若对于行列式$A$，将$a_{ij}$和$a_{ji}$的元素互换位置得到$A^T$，则其就是$A$的转置行列式。
+
+\textcolor{aqua}{\textbf{定理：}}转置行列式与其行列式相等，即$\vert A\vert=\vert A^T\vert$。
+
+\textcolor{aqua}{\textbf{定理：}}对调行列式的任意两行或两列，行列式变号。
+
+\textcolor{aqua}{\textbf{定理：}}若行列式中有两行或两列元素完全相同，则此行列式等于0。
+
+\textcolor{aqua}{\textbf{定理：}}行列式中如果有两行或两列元素成比例，则此行列式等于0。
+
+\textcolor{aqua}{\textbf{定理：}}行列式的某一行或某一列中所有的元素都乘以同一个数$k$，则等于用$k$乘此行列式。行列式中某一行或一列的所有元素的公因子可以提到行列式记号外面。
+
+即$
+\left|\begin{array}{ccccc}
+a_{11} & \cdots & ka_{1i} & \cdots & a_{1n} \\
+a_{21} & \cdots & ka_{2i} & \cdots & a_{2n} \\
+\vdots & \cdots & \vdots & \ddots & \vdots \\
+a_{n1} & \cdots & ka_{ni} & \cdots & a_{nn}
+\end{array}\right|
+=k\left|\begin{array}{ccccc}
+a_{11} & \cdots & a_{1i} & \cdots & a_{1n} \\
+a_{21} & \cdots & a_{2i} & \cdots & a_{2n} \\
+\vdots & \cdots & \vdots & \ddots & \vdots \\
+a_{n1} & \cdots & a_{ni} & \cdots & a_{nn}
+\end{array}\right|$。
+
+\textcolor{aqua}{\textbf{定理：}}某一行列的元素是两数之和$
+\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+\vdots & \vdots & \cdots & \vdots \\
+a_{i1}+a_{j1} & a_{i2}+a_{j2} & \cdots & a_{in}+a_{jn} \\
+\vdots & \vdots & \cdots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|
+$，
+
+则$=\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+\vdots & \vdots & \cdots & \vdots \\
+a_{i1} & a_{i2} & \cdots & a_{in}\\
+\vdots & \vdots & \cdots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|+
+\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+\vdots & \vdots & \cdots & \vdots \\
+a_{j1} & a_{j2} & \cdots & a_{jn} \\
+\vdots & \vdots & \cdots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|$
+
+\textcolor{aqua}{\textbf{定理：}}把行列式的某一行或某一列的个元素乘以同一个数然后加到另一行或一列对应元素上去，行列式不变。
+
+\section{行列式展开}
+
+\subsection{余子式}
+
+$
+D=\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n1} & a_{n2} & \cdots & a_{nn}
+\end{array}\right|
+$
+
+\textcolor{violet}{\textbf{定义：}}$\forall a_{ij}$，$D$中划去$i$行，$j$列余下元素而成的$n-1$阶行列式记为$M_{ij}$，其就是$a_{ij}$的余子式。
+
+余子式$a_{ij}$只与$ij$即位置有关，与$a_{ij}$大小无关。
+
+\subsection{代数余子式}
+
+令$A_{ij}=(-1)^{i+j}M_{ij}$，其就是$a_{ij}$的\textbf{代数余子式}。
+
+\textcolor{aqua}{\textbf{定理：}}若一个$n$阶行列式，若其中第$i$行所有元素除$(i,j)$元$a_{ij}$外都是零，则行列式值$D=a_{ij}A_{ij}$。
+
+\subsection{展开公式}
+
+\textcolor{violet}{\textbf{定义：}}行列式等于其任一行或列的各元素与对应的代数余子式乘积之和。即$D=a_{i1}A_{i1}+\cdots+a_{in}A_{in}$或$D=a_{1j}A_{1j}+\cdots+a_{nj}A_{nj}$。
+
+\textcolor{aqua}{\textbf{定理：}}若元素与不对应的代数余子式乘积之和必然为0。即$a_{i1}A_{k1}+\cdots+a_{in}A_{kn}=0$。
+
+矩阵本质是一个表格。
+
+\section{矩阵定义}
+
+\textcolor{violet}{\textbf{定义：}}$m\times n$矩阵是由$m\times n$个数$a_{ij}$（元素）排成的$m$行$n$列的数表。
+
+元素是实数的矩阵称为\textbf{实矩阵}，元素是复数的矩阵是\textbf{复矩阵}。
+
+行数列数都为$n$的就是\textbf{$n$阶矩阵}或\textbf{方阵}，记为$A_n$。
+
+行矩阵或行向量\textcolor{violet}{\textbf{定义：}}只有一行的矩阵$A=(a_1a_2\cdots a_n)$。
+
+列矩阵或列向量\textcolor{violet}{\textbf{定义：}}只有一列的矩阵$B=
+\left(\begin{array}{c}
+b_1 \\
+b_2 \\
+\cdots \\
+b_m
+\end{array}\right)$。
+
+同型矩阵\textcolor{violet}{\textbf{定义：}}两个矩阵行数、列数相等。
+
+相等矩阵\textcolor{violet}{\textbf{定义：}}是同型矩阵，且对应元素相等的矩阵。记为$A=B$。
+
+零矩阵\textcolor{violet}{\textbf{定义：}}元素都是零的矩阵，记为$O$，但是不同型的零矩阵不相等。
+
+\begin{multicols}{2}
+
+
+对角矩阵或对角阵\textcolor{violet}{\textbf{定义：}}从左上角到右下角的直线（对角线）以外的元素都是0的矩阵，记为$\varLambda=\textrm{diag}(\lambda_1,\lambda_2,\cdots,\lambda_n)$。
+
+$\varLambda=\left(
+\begin{array}{cccc}
+\lambda_1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \cdots & \lambda_n
+\end{array}
+\right)$
+
+单位矩阵或单位阵\textcolor{violet}{\textbf{定义：}}$\lambda_1=\lambda_2=\cdots=\lambda_n=1$的对角矩阵，记为$E$。这种线性变换叫做恒等变换，$AE=A$。 \medskip
+
+$E=\left(
+\begin{array}{cccc}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \cdots & 1
+\end{array}
+\right)$
+
+\end{multicols}
+
+\section{矩阵运算}
+
+\subsection{矩阵加法减法}
+
+设与两个矩阵都是同型矩阵$m\times n$，$A=(a_{ij})$和$B=(b_{ij})$，则其加法就是$A+B$。
+
+$A+B=\left(
+\begin{array}{cccc}
+a_{11}+b_{11} & a_{12}+b_{12} & \cdots & a_{1n}+b_{1n} \\
+a_{21}+b_{21} & a_{22}+b_{22} & \cdots & a_{2n}+b_{2n} \\
+\vdots & \vdots & \vdots & \vdots \\
+a_{m1}+b_{m1} & a_{m2}+b_{m2} & \cdots & a_{m+n}+b_{m+n}
+\end{array}
+\right)$
+
+\begin{itemize}
+\item $A+B=B+A$。
+\item $(A+B)+C=A+(B+C)$。
+\end{itemize}
+
+若$-A=(-a_{ij})$，则$-A$是$A$的负矩阵，$A+(-A)=O$。
+
+从而矩阵的减法为$A-B=A+(-B)$。
+
+\subsection{数乘矩阵}
+
+数$\lambda$与矩阵$A$的乘积记为$\lambda A$或$A\lambda$，规定：\medskip
+
+$\lambda A=A\lambda=\left(
+\begin{array}{cccc}
+\lambda a_{11} & \lambda a_{12} & \cdots & \lambda a_{1n} \\
+\lambda a_{21} & \lambda a_{22} & \cdots & \lambda a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\lambda a_{m1} & \lambda a_{m2} & \cdots & \lambda a_{mn}
+\end{array}
+\right)$ \medskip
+
+假设$A$、$B$都是$m\times n$的矩阵，$\lambda$、$\mu$为数：
+
+\begin{itemize}
+\item $(\lambda\mu)A=\lambda(\mu A)$。
+\item $(\lambda+\mu)A=\lambda A+\mu A$。
+\item $\lambda(A+B)=\lambda A+\lambda B$。
+\end{itemize}
+
+矩阵加法与数乘矩阵都是矩阵的线性运算。
+
+\subsection{矩阵相乘}
+
+设$A=(a_{ij})$是一个$m\times s$的矩阵，$B=(b_{ij})$是一个$s\times n$的矩阵，那么$A\times B=AB=C_{m\times n}=(c_{ij})$。即：$c_{ij}=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots+a_{is}b_{sj}=\sum\limits_{k=1}^sa_{ik}b_{kj}\,\text{（}i=1,2,\cdots,m;j=1,2,\cdots,n\text{）}$。
+
+即前一个矩阵的行乘后一个矩阵的列就得到当前元素的值。
+
+所以按此定义一个$1\times s$行矩阵与$s\times 1$列矩阵的乘积就是一个1阶方针即一个数：
+
+$(a_{i1},a_{i2},\cdots,a_{is})\left(
+\begin{array}{c}
+b_{1j} \\
+b_{2j} \\
+\cdots \\
+b_{sj}
+\end{array}
+\right)=a_{i1}b_{1j}+a_{i2}b_{2j}+\cdots+a_{is}b_{sj}=\sum\limits_{k=1}^sa_{ik}b_{kj}=c_{ij}$。\medskip
+
+从而$AB=C$的$c_{ij}$就是$A$的第$i$行与$B$的$j$列的乘积。
+
+当$A$左边乘$P$为$PA$，称为\textbf{左乘}$P$，若右边乘$P$为$AP$，则称为\textbf{右乘}$P$。
+
+\textcolor{orange}{注意：}只有左矩阵的列数等于右矩阵的行数才能相乘。
+
+只有$AB$都是方阵的时候才能$AB$与$BA$。
+
+矩阵的左乘与右乘不一定相等，即$AB\neq BA$。
+
+\textcolor{violet}{\textbf{定义：}}若方阵$AB$乘积满足$AB=BA$，则表示其是\textbf{可交换}的。
+
+$A\neq O$，$B\neq O$，但是不能推出$AB\neq O$或$BA\neq O$。
+
+$AB=O$不能推出$A=O$或$B=O$。
+
+$A(X-Y)=O$当$A\neq O$也不能推出$X=Y$。
+
+\begin{itemize}
+\item $(AB)C=A(BC)$。
+\item $\lambda(AB)=(\lambda A)B=A(\lambda B)$。
+\item $A(B+C)=AB+AC$。
+\item $(B+C)A=BA+CA$。
+\item $EA=AE=A$。
+\end{itemize}
+
+$\lambda E$称为\textbf{纯量阵}，$(\lambda E_n)A_n=\lambda A_n=A_n(\lambda E_n)$。
+
+若$A_{m\times s}$，$B_{s\times n}=(\beta_1,\cdots,\beta_s)$，其中$\beta$为$n$行的列矩阵，则：
+
+$AB=A(\beta_1,\cdots,\beta_s)=(A\beta_1,\cdots,A\beta_n)$。
+
+\subsection{矩阵幂}
+
+只有方阵才能连乘，从而只有方阵才有幂。
+
+若$A$是$n$阶方阵，所以：
+
+$A^1=A\text{，}A^2=A^1A^1\text{，}\cdots\text{，}A^{k+1}=A^kA^1$
+
+\begin{itemize}
+\item $A^kA^l=A^{k+l}$。
+\item $(A^k)^l=A^{kl}$。
+\end{itemize}
+
+因为矩阵乘法一般不满足交换率，所以$(AB)^k\neq A^kB^k$。只有$AB$可交换时才相等。
+
+若$A\neq 0$不能推出$A^k\neq 0$，如：\medskip
+
+$A=\left(
+\begin{array}{cc}
+0 & 2 \\
+0 & 0
+\end{array}
+\right)\neq 0$。$A^2=\left(
+\begin{array}{cc}
+0 & 2 \\
+0 & 0
+\end{array}
+\right)\left(
+\begin{array}{cc}
+0 & 2 \\
+0 & 0
+\end{array}
+\right)=\left(
+\begin{array}{cc}
+0 & 0 \\
+0 & 0
+\end{array}
+\right)=O$。\medskip
+
+$A=\left(
+\begin{array}{ccc}
+0 & 1 & 1 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}
+\right)$，$A^3=O$。\medskip
+
+矩阵幂可以同普通多项式进行处理。
+
+如$f(x)=a_nx^n+\cdots+a_1x+n$，对于$A$就是$f(A)=a_nA^n+\cdots+a_1A+a_nE$。
+
+$f(A)=A^2-A-6E=(A+2E)(A-3E)$。
+
+\subsection{矩阵转置}
+
+把矩阵$A$的行换成同序数的列就得到一个新矩阵，就是$A$的转置矩阵$A^T$。若$A$为$m\times n$，则$A^T$为$n\times m$。
+
+\begin{itemize}
+\item $(A^T)^T=A$。
+\item $(A+B)^T=A^T+B^T$。
+\item $(\lambda A)^T=\lambda A^T$。
+\item $(AB)^T=B^TA^T$。
+\item 若$m=n$，$\vert A\vert=\vert A^T\vert$。
+\end{itemize}
+
+对称矩阵或对称阵\textcolor{violet}{\textbf{定义：}}矩阵$A$是方阵，且元素以对角线为对称轴对应相等，$A=A^T$。
+
+反对称矩阵\textcolor{violet}{\textbf{定义：}}矩阵$A$是方阵，且满足$-A=A^T$。即$\left\{\begin{array}{l}
+a_{ij}=-a_{ji},i\neq j \\
+a_{ii}=0
+\end{array}\right.$。
+
+正交矩阵\textcolor{violet}{\textbf{定义：}}矩阵$A$是方阵，且满足$A^TA=E$。
+
+\subsection{方阵行列式}
+
+由$n$阶方阵$A$的元素所构成的行列式称为矩阵$A$的行列式，记为$\textrm{det}\,A$或$\vert A\vert$。
+
+\begin{itemize}
+\item $\vert A^T\vert=\vert A\vert$。
+\item $\vert A^{-1}\vert=\dfrac{1}{\vert A\vert}$。
+\item $\vert\lambda A\vert=\lambda^n\vert A\vert$。
+\item $\vert AB\vert=\vert A\vert\cdot\vert B\vert=\vert BA\vert$。
+\end{itemize}
+
+一般而言：$\vert A+B\vert\neq\vert A\vert+\vert B\vert$，$\vert A\vert\neq O\nRightarrow\vert A\vert\neq0$，$A\neq B\nRightarrow\vert A\vert\neq\vert B\vert$。
+
+\subsection{伴随矩阵}
+
+伴随矩阵或伴随阵\textcolor{violet}{\textbf{定义：}}行列式$\vert A\vert$各个元素的代数余子式$A_{ij}$转置构成的矩阵。
+
+$A^*=\left(
+\begin{array}{cccc}
+A_{11} & A_{21} & \cdots & A_{n1} \\
+A_{12} & A_{22} & \cdots & A_{n2} \\
+\vdots & \vdots & \ddots & \vdots \\
+A_{1n} & A_{2n} & \cdots & A_{nn}
+\end{array}
+\right)$
+
+\begin{itemize}
+\item 任何方阵都有伴随矩阵，其中$AA^*=A^*A=\vert A\vert E$。
+\item $A^*=\vert A\vert A^{-1}$，$A^{-1}=\dfrac{1}{\vert A\vert}A^*$，$A=\vert A\vert(A^*)^{-1}$。
+\item $\vert A^*\vert=\vert A\vert^{n-1}$，$(kA)^*=k^{n-1}A^*$，$(kA)(kA)^*=\vert kA\vert E$，$A^T(A^T)^*=\vert A^T\vert E$，$A^{-1}(A^{-1})^*=\vert A^{-1}\vert E$，$A^*(A^*)^*=\vert A^*\vert E$。
+\item $(A^T)^*=(A^*)^T$，$(A^{-1})^*=(A^*)^{-1}$，$(AB)^*=B^*A^*$，$(A^*)^*=\vert A\vert^{n-2}A$。
+\end{itemize}
+
+\textbf{例题：}假设$A$为$n$阶方阵，求$\vert A^*\vert$与$(A^*)^*$。
+
+解：$\because AA^*=A^*A=\vert A\vert E$，$\therefore A^*(A^*)^*=\vert A^*\vert E$。
+
+$(A^*)^{-1}A^*(A^*)^*=(A^*)^*=(A^*)^{-1}\vert A^*\vert E$，又$AA^*=\vert A\vert E$，$\vert AA^*\vert=\vert\vert A\vert E\vert$，
+
+$\therefore\vert A\vert\vert A^*\vert=\vert A\vert^n\vert E\vert$，$\therefore\vert A^*\vert=\vert A\vert^{n-1}$。
+
+又$AA^*=\vert A\vert E$，$\therefore A^*=\vert A\vert A^{-1}$，$(A^*)^{-1}=(\vert A\vert A^{-1})^{-1}=\dfrac{1}{\vert A\vert}A$。
+
+$\because(A^*)^*=(A^*)^{-1}\vert A^*\vert E$，$\therefore=\dfrac{1}{\vert A\vert}A\vert A^*\vert=\dfrac{1}{\vert A\vert}A\vert A\vert^{n-1}=\vert A\vert^{n-2}A$。
+
+\textbf{例题：}假设$A$为$n$阶方阵，求$(kA)^*$。
+
+解：根据$AA^*=\vert A\vert E$，$\therefore (kA)(kA)^*=\vert kA\vert E$，推出$(kA)^*=\vert kA\vert(kA)^{-1}$。
+
+$=k^n\vert A\vert\dfrac{1}{k}A^{-1}=k^{n-1}\vert A\vert A^{-1}=k^{n-1}A^*$。
+
+\subsection{分块矩阵}
+
+在行列式的时候提到了分块行列式，分块行列式计算时要求对应的零行列式必须是行列数相等的，而对于分块矩阵而言则不要求，且不一定要零矩阵。
+
+对于行列数较多的矩阵常使用\textbf{分块法}，将大矩阵化为小矩阵。将矩阵用横纵线分为多个小矩阵，每个矩阵成为矩阵的\textbf{子块}，以子块为元素的矩阵就是\textbf{分块矩阵}。
+
+\subsubsection{分块矩阵计算}
+
+分块矩阵的计算法则与普通矩阵计算类似。
+
+\textcolor{aqua}{\textbf{定理：}}若$AB$矩阵行列数相同，采用相同的分块法，则 \medskip
+
+$A=\left(
+\begin{array}{ccc}
+A_{11} & \cdots & A_{1r} \\
+\vdots & & \vdots \\
+A_{s1} & \cdots & A_{sr}
+\end{array}
+\right)\text{，}B=\left(
+\begin{array}{ccc}
+B_{11} & \cdots & B_{1r} \\
+\vdots & & \vdots \\
+B_{s1} & \cdots & B_{sr}
+\end{array}
+\right)$
+
+$A+B=\left(
+\begin{array}{ccc}
+A_{11}+B_{11} & \cdots & A_{1r}+B_{1r} \\
+\vdots & & \vdots \\
+A_{s1}+B_{s1} & \cdots & A_{sr}+B_{sr}
+\end{array}
+\right)\text{。}$
+
+\textcolor{aqua}{\textbf{定理：}}设$A=\left(
+\begin{array}{ccc}
+A_{11} & \cdots & A_{1r} \\
+\vdots & & \vdots \\
+A_{s1} & \cdots & A_{sr}
+\end{array}
+\right)$，$\lambda$为数，则$\lambda A=\left(
+\begin{array}{ccc}
+\lambda A_{11} & \cdots & \lambda A_{1r} \\
+\vdots & & \vdots \\
+\lambda A_{s1} & \cdots & \lambda A_{sr}
+\end{array}
+\right)$。\medskip
+
+\textcolor{aqua}{\textbf{定理：}}若$A_{m\times l}$，$B_{l\times n}$，采用相同的分块法，则 \medskip
+
+$A=\left(
+\begin{array}{ccc}
+A_{11} & \cdots & A_{1t} \\
+\vdots & & \vdots \\
+A_{s1} & \cdots & A_{st}
+\end{array}
+\right)\text{，}B=\left(
+\begin{array}{ccc}
+B_{11} & \cdots & B_{1t} \\
+\vdots & & \vdots \\
+B_{t1} & \cdots & B_{sr}
+\end{array}
+\right)$
+
+$AB=\left(
+\begin{array}{ccc}
+C_{11} & \cdots & C_{1r} \\
+\vdots & & \vdots \\
+C_{s1} & \cdots & C_{sr}
+\end{array}
+\right)\text{，}C_{ij}=\sum\limits_{k=1}^tA_{ik}B_{kj}\text{。}$
+
+\textcolor{aqua}{\textbf{定理：}}设$A=\left(
+\begin{array}{ccc}
+A_{11} & \cdots & A_{1r} \\
+\vdots & & \vdots \\
+A_{s1} & \cdots & A_{sr}
+\end{array}
+\right)$，则$A^T=\left(
+\begin{array}{ccc}
+A_{11}^T & \cdots & A_{s1}^T \\
+\vdots & & \vdots \\
+A_{1r}^T & \cdots & A_{sr}^T
+\end{array}
+\right)$。 \medskip
+
+\textcolor{aqua}{\textbf{定理：}}设$A$为$n$阶方阵，$A$的分块矩阵只有对角线上才有非零子块且都是方阵，其余子块都是零矩阵，即$A=\left(
+\begin{array}{cccc}
+A_1 & & & O \\
+& A_2 & \\
+& & \ddots & \\
+O & & & A_s
+\end{array}
+\right)$，称为\textbf{分块对角矩阵}。$\vert A\vert=\vert A_1\vert\vert A_2\vert\cdots\vert A_s\vert$。
+
+若$\vert A_i\vert\neq0$，则$\vert A\vert\neq0$，且$A^{-1}=\left(
+\begin{array}{cccc}
+A_1^{-1} & & & O \\
+& A_2^{-1} & \\
+& & \ddots & \\
+O & & & A_s^{-1}
+\end{array}
+\right)$。
+
+\subsubsection{按行按列分块}
+
+对于$m\times n$的矩阵$A$，其$n$列称为$A$的$n$个列向量，若第$j$列记为$a_j=\left(
+\begin{array}{c}
+a_{1j} \\
+a_{2j} \\
+\vdots \\
+a_{mj}
+\end{array}
+\right)$，则$A$可以按列分块为$A=(a_1,a_2,\cdots,a_n)$。\medskip
+
+其$m$行称为$A$的$m$个行向量，若第$i$行记为$a_i^T=(a_{i1},a_{i2},\cdots,a_{in})$，则$A$可以按行分块为$A=\left(\begin{array}{c}
+a_1^T \\
+a_2^T \\
+\vdots \\
+a_{m}^T
+\end{array}\right)$。
+
+若对于$A_{m\times s}$与$B_{s\times n}$的乘积矩阵$AB=C=(c_{ij})_{m\times n}$，若将$A$按行分为$m$块，$B$按列分为$n$块，则有：\medskip
+
+$AB=\left(
+\begin{array}{c}
+a_1^T \\
+a_2^T \\
+\vdots \\
+a_{m}^T
+\end{array}
+\right)(b_1,b_2,\cdots,b_n)$
+
+$=\left(
+\begin{array}{cccc}
+a_1^Tb_1 & a_1^Tb_2 & \cdots & a_1^Tb_n \\
+a_2^Tb_1 & a_2^Tb_2 & \cdots & a_2^Tb_n \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m}^Tb_1 & a_{m}^Tb_2 & \cdots & a_{m}^Tb_n
+\end{array}
+\right)=(c_{ij})_{m\times n}\text{。}$
+
+其中：$c_{ij}=a_i^Tb_j=(a_{i1},a_{i2},\cdots,a_{is})\left(\begin{array}{c}
+b_{1j} \\
+b_{2j} \\
+\vdots \\
+b_{sj}
+\end{array}\right)=\sum\limits_{k=1}^s=a_{ik}b_{kj}\text{。}$
+
+\textcolor{aqua}{\textbf{定理：}}$A=O$的充要条件是$A^TA=O$。
+
+证明：$\because A=O$，$\therefore A^T=O$，$A^TA=O$。
+
+设$A=(a_{ij})_{m\times n}$，将$A$按列分块为$A=(a_1,a_2,\cdots,a_n)$，则 \medskip
+
+$A^TA=\left(
+\begin{array}{c}
+a_1^T \\
+a_2^T \\
+\vdots \\
+a_{m}^T
+\end{array}
+\right)(a_1,a_2,\cdots,a_n)=\left(
+\begin{array}{cccc}
+a_1^Ta_1 & a_1^Ta_2 & \cdots & a_1^Ta_n \\
+a_2^Ta_1 & a_2^Ta_2 & \cdots & a_2^Ta_n \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m}^Ta_1 & a_{m}^Ta_2 & \cdots & a_{m}^Ta_n
+\end{array}
+\right)\text{。}$\medskip
+
+所以$A^TA$的元为$a^T_ia_j$，又$\because A^TA=O$，$\therefore a^T_ia_j=0$（$i,j=1,2,\cdots n$）。
+
+$\therefore a^T_ja_j=0$（$j=1,2,\cdots n$），对角线元素全部为0。\medskip
+
+且$a^T_ja_j=\left(
+\begin{array}{cccc}
+a_1^Ta_1 & & & \\
+& a_2^Ta_2 & & \\
+& & \ddots & \\
+& & & a_{m}^Ta_n
+\end{array}
+\right)=(a_{1j},a_{2j},\cdots,a_{mj})\left(\begin{array}{c}
+a_{1j} \\
+a_{2j} \\
+\vdots \\
+a_{mj}
+\end{array}\right)$ \medskip
+
+$=a_{1j}^2+a_{2j}^2+\cdots+a_{mj}^2=0$，所以$a_{1j}=a_{2j}=\cdots+a_{mj}=0$。
+
+$\therefore A=O$。
+
+\section{逆矩阵}
+
+\subsection{逆矩阵定义}
+
+逆矩阵就是类似矩阵的除运算。
+
+\textcolor{violet}{\textbf{定义：}}逆矩阵类比倒数，若对于$n$阶方阵$A$，有一个$n$阶方阵$B$，使得$AB=BA=E$，则$A$可逆，$B$是$A$的逆矩阵也称为逆阵，且逆矩阵唯一，记为$B=A^{-1}$。
+
+\textcolor{aqua}{\textbf{定理：}}若方阵$A$可逆，则$\vert A\vert\neq 0$。
+
+证明：若$A$可逆，则$AA^{-1}=E$，所以$\vert A\vert\cdot\vert A^{-1}\vert=\vert E\vert=1$，$\vert A\vert\neq 0$。
+
+可以类比普通数字，若$a$有一个倒数$\dfrac{1}{a}$，则$a\neq 0$，否则无法倒。
+
+\textcolor{aqua}{\textbf{定理：}}若$\vert A\vert\neq 0$，则$A$可逆，且$A^{-1}=\dfrac{1}{\vert A\vert}A^*$。
+
+证明：$\because AA^*=A^*A=\vert A\vert E$，又$\vert A\vert\neq 0$，$A\dfrac{1}{\vert A\vert}A^*=\dfrac{1}{\vert A\vert}A^*A=E$。
+
+按逆矩阵定义，当$A$可逆，与$A^{-1}=\dfrac{1}{\vert A\vert}A^*$。
+
+当$\vert A\vert=0$时，$A$为\textbf{奇异矩阵}，否则是\textbf{非奇异矩阵}。
+
+\textcolor{aqua}{\textbf{定理：}}矩阵是可逆矩阵的必要条件是非奇异矩阵。
+
+\textcolor{aqua}{\textbf{定理：}}若$AB=E$或$BA=E$，则$B=A^{-1}$。
+
+\subsection{逆矩阵性质}
+
+\begin{itemize}
+\item 若$A$可逆，则$(A^{-1})^{-1}=A$。
+\item 若$A$可逆，数$\lambda\neq0$，则$(\lambda A)^{-1}=\dfrac{1}{\lambda}A^{-1}$。
+\item 若$AB$为同阶矩阵且都可逆，则$(AB)^{-1}=B^{-1}A^{-1}$。
+\item 若$A$可逆，则$(A^T)^{-1}=(A^{-1})^T$。
+\item 若$A$可逆，则$\vert A^{-1}\vert=\vert A\vert^{-1}$。
+\item 若$A$可逆，$\lambda\mu$为整数时，$A^\lambda A^\mu=A^{\lambda+\mu}$，$(A^\lambda)^\mu=A^{\lambda\mu}$。
+\end{itemize}
+
+若$A$、$B$可逆，则$A+B$不一定可逆，且$(A+B)^{-1}\neq A^{-1}+B^{-1}$。
+
+\subsection{求逆矩阵}
+
+\subsubsection{伴随矩阵}
+
+根据伴随矩阵的定义，即求出矩阵所代表行列式的各行元素的代数余子式，然后按列进行排列。
+
+只能求四阶以下的矩阵，过高阶的矩阵很难求出。
+
+\begin{enumerate}
+\item 求出$\vert A\vert$，判断是否为0。
+\item 写出$A^*$。
+\item 计算$A^{-1}=\dfrac{1}{\vert A\vert}A^*$。
+\end{enumerate}
+
+\subsubsection{初等变换}
+
+可以利用初等变换来求逆矩阵。
+
+\section{矩阵初等变换}
+
+可以使用矩阵初等变换来实现求逆矩阵。且初等变换还可以用来求线性方程组的解。
+
+\subsection{初等变换}
+
+矩阵的三种初等行变换，互换、倍乘、倍加：
+
+\begin{enumerate}
+\item 对换两行（对换$ij$两行，记为$r_i\leftrightarrow r_j$）。
+\item 以数$k\neq0$乘某一行中的所有元（第$i$行乘$k$，记为$r_i\times k$），对角线元素全部为0。
+\item 把某一行所有元的$k$倍加到另一行对应元上（第$j$行的$k$倍加上第$i$行上，记为$r_i+kr_j$）。
+\end{enumerate}
+
+把对应的行换为列就得到初等列变换，将$r$改为$c$。其逆变换也是一种初等变换。初等行变换和初等列变换都是\textbf{初等变换}。
+
+\textcolor{violet}{\textbf{定义：}}若$A$经过有限次行变换得到$B$，则称$AB$行等价，记为$A\overset{r}{\sim}B$；若$A$经过有限次列变换得到$B$，则称$AB$行等价，记为$A\overset{c}{\sim}B$；若$A$经过有限次初等变换得到$B$，则称$AB$行等价，记为$A\sim B$。
+
+矩阵之间的等价关系：
+
+\begin{enumerate}
+\item 反身性：$A\sim A$。
+\item 对称性：若$A\sim B$，则$B\sim A$。
+\item 传递性：若$A\sim B$，$B\sim C$，则$A\sim C$。
+\end{enumerate}
+
+若是解方程组，则使用初等行变换解不会发生改变，若使用初等列变换则会改变解。
+
+\subsection{阶梯型矩阵}
+
+将方程式用增广矩阵表示，然后通过初等行变换就可以对方程式进行消元。得到如下类型的矩阵结果，类似三角行列式，如：
+
+\begin{multicols}{2}
+
+$
+\left(
+\begin{array}{@{} c c c c c @{}}
+\multicolumn{1}{: c}{1} & 2 & -1 &  3 &  4 \\
+\cdashline{1-1}
+0 & \multicolumn{1}{: c}{1} &  3 & -2 & -1 \\
+\cdashline{2-5}
+0 & 0 &  0 &  0 &  0 \\
+0 & 0 &  0 &  0 &  0
+\end{array}
+\right)
+$
+
+竖线区分零元素与非零元素，每行的竖线右方第一个元素，称为该非零行的\textbf{首非零元}。
+
+\end{multicols}
+
+行阶梯形矩阵\textcolor{violet}{\textbf{定义：}}非零行在零行的上面，非零行的首非零元素所在列在上一行首非零元素所在列的右边的非零矩阵。
+
+行最简形矩阵\textcolor{violet}{\textbf{定义：}}非零行的首非零元素为1，首非零元所在列其他的元全部为0的行阶梯矩阵。
+
+对于任何矩阵都能通过初等列变换变为行阶梯形矩阵和行最简形矩阵，再通过列变换可以变为\textbf{标准形}：左上角是一个单位矩阵，其他元全部是0。
+
+\subsection{初等变换性质}
+
+\textcolor{aqua}{\textbf{定理：}}设$AB$都是$m\times n$矩阵，初等变换与矩阵乘积关系：\begin{enumerate}
+\item $A\overset{r}{\sim}B$的充要条件是存在$m$阶可逆矩阵$P$，使得$PA=B$。
+\item $A\overset{c}{\sim}B$的充要条件是存在$n$阶可逆矩阵$Q$，使得$AQ=B$。
+\item $A\sim B$的充要条件是存在$m$阶可逆矩阵$P$和$n$阶可逆矩阵$Q$，使得$PAQ=B$。
+\end{enumerate}
+
+初等变换具有如下性质：
+
+\begin{itemize}
+\item 设$A$是一个$m\times n$矩阵，对$A$进行一次初等行变换，相当于在$A$左乘对应$m$阶初等矩阵；对$A$进行一次列变换，相当于在$A$右乘对应$n$阶初等矩阵。
+\item 方阵$A$可逆的充分必要条件是存在有限个初等矩阵$P_i$使得$A=\prod\limits_{i=1}^nP_i$。
+\item 可逆方阵$A$一定可以通过有限次初等变换化为同阶单位矩阵$E$。
+\item 方阵$A$可逆的充要条件是$A\overset{r}{\sim}E$。（即$A$方阵所代表的线性方程组能通过初等计算得到最后的解）
+\end{itemize}
+
+对于$A_{m\times n}$进行初等变换：\begin{enumerate}
+\item 第$ij$行对换：$E_m(ij)A$，第$ij$列变换：$AE_n(ij)$。
+\item 数$k$乘第$i$行：$E_m(i(k))A$，数$k$乘第$i$列：$AE_n(i(k))$。
+\item 数$k$乘第$j$行加到$i$行：$E_m(ij(k))A$，数$k$乘第$j$列加到$i$列：$AE_n(ij(k))$。
+\end{enumerate}
+
+已知$A$经过无数次初等变换就能变成单位矩阵，即通过乘无数个初等矩阵就可以变成单位矩阵，那么这些初等矩阵是什么呢？\medskip
+
+例如$A=\left(\begin{array}{cc}
+1 & 2 \\
+2 & 3
+\end{array}\right)$要变成$\left(\begin{array}{cc}
+1 & 2 \\
+0 & -1
+\end{array}\right)$，就需要将第一排的数据乘-2加到第二排。
+
+即按照初等矩阵的表示方法就是$E_{21}(-2)$，然后这个初等矩阵就是对单位矩阵进行同样变换。
+
+即$E_{21}(-2)$就是将初等矩阵第一排的数据乘-2加到第二排，得到$E_{21}(-2)=\left(\begin{array}{cc}
+1 & 0 \\
+-2 & 1
+\end{array}\right)$，而行变换$\left(\begin{array}{cc}
+1 & 0 \\
+-2 & 1
+\end{array}\right)\left(\begin{array}{cc}
+1 & 2 \\
+2 & 3
+\end{array}\right)=\left(\begin{array}{cc}
+1 & 2 \\
+0 & -1
+\end{array}\right)$，果然就得到目标结果。
+
+从而对一个矩阵进行初等行变换就是左乘一个进行同样行变换的初等矩阵，列变换同理。
+
+\subsection{初等矩阵性质}
+
+初等矩阵\textcolor{violet}{\textbf{定义：}}由单位矩阵$E$经过一次初等变换得到的矩阵。所以初等矩阵都是方阵。
+
+\begin{itemize}
+\item 初等矩阵的转置也是初等矩阵。
+\item 对初等矩阵进行行或列变换，$\vert E_{ij}\vert=-1$，对其求逆：$E_{ij}^{-1}=E_{ij}$。
+\item 对初等矩阵$i$行乘$k$，$\vert E_i(k)\vert=k$，对其求逆：$E_i(k)^{-1}=E_i\left(\dfrac{1}{k}\right)$。
+\item 对初等矩阵第$j$行乘$k$加到$i$行，$\vert E_{ij}(k)\vert=1$，对其求逆：$E_{ij}(k)^{-1}=E_{ij}(-k)$。
+\end{itemize}
+
+\subsection{初等行变换求逆}
+
+若该矩阵$A$是可逆矩阵，就将$AX=B$的增广矩阵$(A,B)$化为最简形矩阵，从而得到方程解。\medskip
+
+$\because P_i\cdots P_2P_1A=E$，$P_i\cdots P_2P_1E=A^{-1}$。
+
+$\left[A\vdots B\right]\overset{r}{\sim}\left[E\vdots A^{-1}\right]$，$\left[\begin{array}{c}
+A \\
+B
+\end{array}\right]\overset{c}{\sim}\left[\begin{array}{c}
+E \\
+A^{-1}
+\end{array}\right]$。
+
+\textbf{例题：}求解矩阵方程$AX=B$，$A=\left(\begin{array}{ccc}
+2 & 1 & -3 \\
+1 & 2 & -2 \\
+-1 & 3 & 2
+\end{array}\right)$，$B=\left(\begin{array}{cc}
+1 & -1 \\
+2 & 0 \\
+-2 & 5
+\end{array}\right)$。\medskip
+
+解：因为$AX=B$，所以左乘$A^{-1}$：$A^{-1}AX=EX=A^{-1}B$，增广矩阵行变换：
+
+$(A,B)=\left(\begin{array}{ccccc}
+2 & 1 & -3 & 1 & -1 \\
+1 & 2 & -2 & 2 & 0 \\
+-1 & 3 & 2 & -2 & 5
+\end{array}\right)\sim\left(\begin{array}{ccccc}
+1 & 2 & -2 & 2 & 0 \\
+0 & -3 & 1 & -3 & -1 \\
+0 & 5 & 0 & 0 & 5
+\end{array}\right)$
+
+$\sim\left(\begin{array}{ccccc}
+1 & 2 & -2 & 2 & 0 \\
+0 & 1 & 0 & 0 & 1 \\
+0 & 0 & 1 & -3 & 2
+\end{array}\right)\sim\left(\begin{array}{ccccc}
+1 & 0 & 0 & -4 & 2 \\
+0 & 1 & 0 & 0 & 1 \\
+0 & 0 & 1 & -3 & 2
+\end{array}\right)$，从而$X=\left(\begin{array}{cc}
+-4 & 2 \\
+0 & 1 \\
+-3 & 2
+\end{array}\right)$。
+
+\section{矩阵秩}
+
+\subsection{定义}
+
+秩的本质就是组成矩阵的线性无关的向量个数。
+
+若秩等于矩阵行数就是满秩，否则就是降秩。
+
+\subsection{性质}
+
+$r(kA)=r(A)$。
+
+$r(AB)\leqslant\min\{r(A),r(B)\}$。当且仅当$AB$满秩等号成立。
+
+$r(A+B)\leqslant r(A|B)\leqslant r(A)+r(B)$。
+
+$r(A^*)=\left\{\begin{array}{l}
+n, r(A)=n \\
+1, r(A)=n-1 \\
+0, r(A)<n-1
+\end{array}\right.$。
+
+$AB=O$，$r(A)+r(B)\leqslant$阶数，即变量数或列数。
+
+% 证明：$\because B=(\beta_1,\cdots,\beta_s)$，$\therefore(A\beta_1,\cdots,A\beta_s)=0$，$\therefore A\beta_i=0$，$i=1,2,\cdots,s$。
+
+% 从而每个$\beta_i$都是$Ax=0$的解。
+
+\subsection{子式}
+
+在矩阵中，任取$k$行和$k$列 ，位于这些行和列的交点上的 个元素原来的次序所组成的$k$阶方阵的行列式，叫做$A$的一个$k$阶子式。
+
+当$r(A)=r$时：
+
+\begin{itemize}
+\item $A$中一定有$r$阶子式不为0，但并不要求所有的$r$阶子式都不为0。即至少存在一个不为0的$r$阶子式让原式秩保持$r$。
+\item $A$中一定有$r-1$阶子式不为0，但并不要求所有的$r-1$阶子式都不为0。
+\item 而$r+1$阶子式则必须全为0。
+\end{itemize}
+
+\section{等价矩阵}
+
+\subsection{定义}
+
+\textcolor{violet}{\textbf{定义：}}若有两个同型的$m\times n$的矩阵$AB$，满足$B=QAP$（$Q$为$m\times m$阶可逆矩阵，$P$为$n\times n$阶可逆矩阵），则$AB$等价。
+
+\subsection{性质}
+
+\begin{itemize}
+\item 矩阵$A$和$A$等价（反身性）。
+\item 矩阵$A$和$B$等价，那么$B$和$A$也等价（等价性）。
+\item 矩阵$A$和$B$等价，矩阵$B$和$C$等价,那么$A$和$C$等价（传递性）。
+\item 矩阵$A$和$B$等价，那么$\vert A\vert=k\vert B\vert$。（$k$为非零常数）。
+\item 具有行等价关系的矩阵所对应的线性方程组有相同的解。
+\end{itemize}
+
+\subsection{判定}
+
+\textcolor{aqua}{\textbf{定理：}}若$AB$同型且秩相等，则其等价。
+
+线性代数的主要研究对象就是向量，行列式与矩阵都是由向量组成的向量组。
+
+\section{向量与向量组}
+
+\subsection{向量的定义与运算}
+
+$n$维向量\textcolor{violet}{\textbf{定义：}}$n$个数构成的一个有序数组$[a_1,a_2,\cdots,a_n]$称为一个$n$维向量，记为$\alpha=[a_1,a_2,\cdots,a_n]$，并称$\alpha$为$n$维行向量，$\alpha^T$为$n$维列向量，$a_i$为向量$\alpha$的$i$个分量。
+
+若$\alpha$与$\beta$都是$n$维向量，且对应元素相等，则$\alpha=\beta$。
+
+$\alpha+\beta=[a_1+b_1,a_2+b_2,\cdots,a_n+b_n]$。
+
+$k\alpha=[ka_1,ka_2,\cdots,ka_3]$。
+
+\subsection{向量组的线性概念}
+
+线性组合\textcolor{violet}{\textbf{定义：}}$m$个$n$维向量$\alpha_1,\alpha_2,\cdots,\alpha_m$以及$m$个数$k_1,k_2,\cdots,k_m$，则向量$k_1\alpha_1+k_2\alpha_2+\cdots+k_m\alpha_m$就是向量组$a_1,a_2,\cdots,a_m$的线性组合。
+
+线性表出\textcolor{violet}{\textbf{定义：}}若向量$\beta$能表示成向量组$\alpha_1,\alpha_2,\cdots,a_m$的线性组合，则存在$m$个数$k_1,k_2,\cdots,k_m$，使得$\beta=k_1\alpha_1+k_2\alpha_2+\cdots+k_m\alpha_m$，则成向量$\beta$能被向量组$a_1,a_2,\cdots,a_m$线性表出。否则不能被线性表出。
+
+线性相关\textcolor{violet}{\textbf{定义：}}对$m$个$n$维向量$a_1,a_2,\cdots,a_m$，存在一组不全为0的数$k_1,k_2,\cdots,k_m$，使得$k_1\alpha_1+k_2\alpha_2+\cdots+k_m\alpha_m=0$，则称$a_1,a_2,\cdots,a_m$线性相关。
+
+含有零向量或成比例向量的向量组必然线性相关。
+
+线性无关\textcolor{violet}{\textbf{定义：}}对$m$个$n$维向量$a_1,a_2,\cdots,a_m$，不存在一组不全为0的数$k_1,k_2,\cdots,k_m$，使得$k_1\alpha_1+k_2\alpha_2+\cdots+k_m\alpha_m=0$，即仅当$k_1=k_2=\cdots=k_m=0$才成立，则称$a_1,a_2,\cdots,a_m$线性无关。
+
+两个非零向量，不成比例向量的向量必然线性无关。
+
+\section{线性相关性}
+
+\subsection{线性相关判定}
+
+\begin{enumerate}
+\item 向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$（$n\geqslant2$）线性相关的充要条件是向量组中至少有一个向量可由其他$n-1$个向量线性表出。若$\alpha_1,\alpha_2,\cdots,\alpha_n$线性无关的充要条件是向量组的任何一个向量都不能被其他$n-1$个向量线性表出。
+\item 向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$线性无关，而$\beta,\alpha_1,\alpha_2,\cdots,\alpha_n$线性相关，则$\beta$可由$\alpha_1,\alpha_2,\cdots,\alpha_n$线性表示，且表示方法唯一。
+\item 向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$可由向量组$\beta_1,\beta_2,\cdots,\beta_s$线性表示，且$n>s$，则$\alpha_1,\alpha_2,\cdots,\alpha_n$线性相关。（以少表多，多的相关）若向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$可由向量组$\beta_1,\beta_2,\cdots,\beta_s$线性表示，$\alpha_1,\alpha_2,\cdots,\alpha_n$线性无关，则$n\leqslant s$。
+\item 设$m$个$n$维向量$\alpha_1,\alpha_2,\cdots,\alpha_m$，其中$\alpha_1=[a_{11},a_{12},\cdots,a_{m1}]^T$，$\cdots$，$\alpha_m=[a_{1m},a_{2m},\cdots,a_{mm}]^T$，则向量组$\alpha_1,\alpha_2,\cdots,\alpha_m$线性相关的充要条件是齐次线性方程$Ax=0$有非零解，其中$A=[\alpha_1,\alpha_2,\cdots,\alpha_m]$，$x=[x_1,x_2,\cdots,x_m]^T$。$m$个$n$维向量$\alpha_1,\alpha_2,\cdots,\alpha_m$线性无关的充要条件是齐次线性方程$Ax=0$只有零解。
+\item 向量$\beta$可由向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$表出，则向量组$\alpha_1x_1+\alpha_2x_2+\cdots+\alpha_nx_n=[\alpha_1,\alpha_2,\cdots,\alpha_n][x_1,x_2,\cdots,x_n]^T=\beta$有解，即$r([\alpha_1,\alpha_2,\cdots,\alpha_n])=r([\alpha_1,\alpha_2,\cdots,\alpha_n,\beta])$。否则则不能表出，则方程无解，$r([\alpha_1,\alpha_2,\cdots,\alpha_n])+1=r([\alpha_1,\alpha_2,\cdots,\alpha_n,\beta])$
+\item 向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$存在一部分向量线性相关，则整个向量组线性相关。若$\alpha_1,\alpha_2,\cdots,\alpha_n$线性无关，则任意一部分向量组线性无关。
+\item 设$m$个$n$维向量$\alpha_1,\alpha_2,\cdots,\alpha_m$线性无关，则把这些向量中每个各任意添加$s$个分量所得到的新向量组（$n+s$维）$\alpha_1^*,\alpha_2^*,\cdots,\alpha_m^*$也是线性无关的；如果$\alpha_1,\alpha_2,\cdots,\alpha_m$线性相关，则每个各去掉相同的若干分量得到的新向量组也线性相关。（原来无关延长无关，原来相关缩短相关）
+\end{enumerate}
+
+\subsection{极大线性无关组}
+
+\subsubsection{概念}
+
+极大线性无关组\textcolor{violet}{\textbf{定义：}}在向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$中，若存在部分$a_i,a_j,\cdots,a_k$满足：\ding{172}$a_i,a_j,\cdots,a_k$线性无关；\ding{173}向量组中任一向量$a_s$（$i=1,2,\cdots,n$）均可由$a_i,a_j,\cdots,a_k$线性表出，则称向量组$a_i,a_j,\cdots,a_k$为原向量组的极大线性无关组。
+
+不包含无用约束方程的最简方程组的系数矩阵就是极大线性无关组。
+
+向量组的极大线性无关组一般不唯一，只由一个零向量组成的向量组不存在极大线性无关组，一个线性无关向量组的极大线性无关组就是其本身。
+
+\section{向量组秩}
+
+向量组构成矩阵的秩等于行向量组的秩等于列向量组的秩。
+
+若$A$通过初等行变换为$B$，则$AB$的行向量组是等价向量组，任何对应的部分列向量组都具有同样的线性相关性。
+
+若向量组$B$均可由$A$线性表出，则$r(B)\leqslant r(A)$。
+
+\section{等价向量组}
+
+任何一个组都可以由其极大线性无关组来代表。
+
+\subsection{定义}
+
+设两个向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$和$\beta_1,\beta_2,\cdots,\beta_m$，若这两个向量组可以互相线性表出，则称其为等价向量组，记为$\alpha\cong\beta$。
+
+具有的性质：
+
+\begin{enumerate}
+\item $A\cong A$（反身性）。
+\item $A\cong B$，则$B\cong A$（对称性）。
+\item $A\cong B$，$B\cong C$，则$A\cong C$（传递性）。
+\end{enumerate}
+
+向量组和其极大线性无关组是等价向量组。
+
+\subsection{判定}
+
+若$r(A)=r(B)=r(A|B)$，则向量组等价。
+
+$r(A)=r(B)$，$A$可以由$B$表出（只需要一个方向的表出），则向量组等价。
+
+$PAQ=B$（$PQ$为可逆矩阵），通过初等行列变换$A$能转换为$B$。
+
+\subsection{与等价矩阵区别}
+
+对于矩阵而言，若$A\cong B$，则$AB$同型且$r(A)=r(B)$。
+
+对于向量组而言，若$A\cong B$，则$AB$同维（行数相同）且$r(A)=r(B)=r(A|B)$。
+
+等价向量组跟等价矩阵不同，等价矩阵必然完全一致，而等价向量组只要其极大线性无关组一致，可以多一些其他线性相关向量。
+
+\section{向量空间}
+
+\subsection{基本概念}
+
+若$\xi_1,\xi_2,\cdots,\xi_n$是$n$维向量空间$R^n$中的线性无关的有序向量组，则任意向量$\alpha\in R^n$均可由$\xi_1,\xi_2,\cdots,\xi_n$线性表出，记为$\alpha=a_1\xi_1+a_2\xi_2+\cdots+a_n\xi_n$，类似一个极大线性无关组，则称有序向量组$\xi_1,\xi_2,\cdots,\xi_n$为$R^n$的一个\textbf{基}，基向量的个数$n$为向量空间的\textbf{维数}，而$[a_1,a_2,\cdots,a_n]([a_1,a_2,\cdots,a_n]^T)$为向量$\alpha$在基$\xi_1,\xi_2,\cdots,\xi_n$下的\textbf{坐标}，或称为$\alpha$的坐标行列向量。
+
+\subsection{基变换与坐标变换}
+
+若$\eta_1,\eta_2,\cdots,\eta_n$和$\xi_1,\xi_2,\cdots,\xi_n$是$R^n$中两个基，且有关系：$[\eta_1,\eta_2,\cdots,\eta_n]=[\xi_1,\xi_2,\cdots,\xi_n]C_{n\times n}$，则这个式子称为基$\xi_1,\xi_2,\cdots,\xi_n$到基$\eta_1,\eta_2,\cdots,\eta_n$的\textbf{基变换公式}，矩阵$C$就是基$\xi_1,\xi_2,\cdots,\xi_n$到基$\eta_1,\eta_2,\cdots,\eta_n$的\textbf{过渡矩阵}，$C$可逆，$C$的第$i$列就是$\eta_i$在基$\xi_1,\xi_2,\cdots,\xi_n$下的坐标列向量。
+
+$\alpha$在基$\xi_1,\xi_2,\cdots,\xi_n$和基$\eta_1,\eta_2,\cdots,\eta_n$下坐标分别为$x=[x_1,x_2,\cdots,x_n]^T$，$y=[y_1,y_2,\cdots,y_n]^T$，即$\alpha=[\xi_1,\xi_2,\cdots,\xi_n]x=[\eta_1,\eta_2,\cdots,\eta_n]y$。又$C$是基$\xi_1,\xi_2,\cdots,\xi_n$到基$\eta_1,\eta_2,\cdots,\eta_n$的过渡矩阵，则$[\xi_1,\xi_2,\cdots,\xi_n]=[\eta_1,\eta_2,\cdots,\eta_n]C$，则$\alpha=[\xi_1,\xi_2,\cdots,\xi_n]x=[\eta_1,\eta_2,\cdots,\eta_n]y=[\xi_1,\xi_2,\cdots,\xi_n]Cy$，从而$x=Cy$或$y=C^{-1}x$，这个就是\textbf{坐标变换公式}。
+
+\section{基本概念}
+
+矩阵是根据线性方程组得到。线性方程组和向量组本质上是一致的。
+
+\subsection{线性方程组与矩阵}
+
+\begin{multicols}{2}
+
+$\begin{cases}
+a_{11}x_1+\cdots+a_{1n}x_n=0 \\
+\cdots \\
+a_{m1}x_1+\cdots+a_{mn}x_n=0
+\end{cases}$ \medskip
+
+$n$元齐次线性方程组。
+
+$\begin{cases}
+a_{11}x_1+\cdots+a_{1n}x_n=b_1 \\
+\cdots \\
+a_{m1}x_1+\cdots+a_{mn}x_n=b_n
+\end{cases}$ \medskip
+
+$n$元非齐次线性方程组。
+
+\end{multicols}
+
+$m$是方程个数，即方程组行数，$n$是方程未知数个数，即类似方程组的列数。
+
+对于齐次方程，$x_1=\cdots=x_n=0$一定是其解，称为其\textbf{零解}，若有一组不全为零的解，则称为其\textbf{非零解}。其一定有零解，但是不一定有非零解。
+
+对于非齐次方程，只有$b_1\cdots b_n$不全为零才是。\medskip
+
+令\textbf{系数矩阵}$A_{m\times n}=\left(
+\begin{array}{ccc}
+a_{11} & \cdots & a_{1n} \\
+\cdots \\
+a_{m1} & \cdots & a_{mn}
+\end{array}
+\right)$，\textbf{未知数矩阵}$x_{n\times 1}=\left(
+\begin{array}{c}
+x_1 \\
+\cdots \\
+x_n
+\end{array}
+\right)$，\textbf{常数项矩阵}$b_{m\times 1}=\left(
+\begin{array}{c}
+b_1 \\
+\cdots \\
+b_m
+\end{array}
+\right)$，\textbf{增广矩阵}$B_{m\times(n+1)}=\left(
+\begin{array}{c:c}
+\begin{matrix}
+a_{11} & \cdots & a_{1n}\\
+\cdots \\
+a_{m1} & \cdots & a_{mn}
+\end{matrix}&
+\begin{matrix}
+b_1\\
+\\
+b_n
+\end{matrix}
+\end{array}
+\right)$。
+
+所以$AX=\left(
+\begin{array}{c}
+a_11x_1+\cdots+a_{1n}x_n \\
+\cdots \\
+a_{m1}x_1+\cdots+a_{mn}x_n
+\end{array}
+\right)$。
+
+从而$AX=b$等价于$\begin{cases}
+a_{11}x_1+\cdots+a_{1n}x_n=b_1 \\
+\cdots \\
+a_{m1}x_1+\cdots+a_{mn}x_n=b_n
+\end{cases}$，当$b=O$就是齐次线性方程。
+
+从而矩阵可以简单表示线性方程。
+
+\subsection{矩阵乘法与线性变换}
+
+矩阵乘法实际上就是线性方程组的线性变换，将一个变量关于另一个变量的关系式代入原方程组，得到与另一个变量的关系。
+
+$\begin{cases}
+y_1=a_{11}x_1+a_{12}x_2+\cdots+a_{1s}x_s \\
+\cdots \\
+y_m=a_{m1}x_1+a_{m2}x_2+\cdots+a_{ms}x_s
+\end{cases}\begin{cases}
+x_1=b_{11}t_1+b_{12}t_2+\cdots+b_{1n}t_n \\
+\cdots \\
+x_s=b_{s1}t_1+b_{s2}t_2+\cdots+b_{sn}t_n
+\end{cases}$\medskip
+
+原本是线性方程分别是$y$与$x$和$x$与$t$的关系式，而如果将$t$关于$x$的关系式代入$x$关于$y$的关系式中，就会得到$t$关于$y$的关系式：\medskip
+
+$\begin{cases}
+y_1=a_{11}(b_{11}t_1+\cdots+b_{1n}t_n)+\cdots+a_{1s}(b_{s1}t_1+b_{s2}t_2+\cdots+b_{sn}t_n) \\
+\cdots \\
+y_m=a_{m1}(b_{11}t_1+\cdots+b_{1n}t_n)+\cdots+a_{ms}(b_{s1}t_1+b_{s2}t_2+\cdots+b_{sn}t_n)
+\end{cases}$
+
+$=\begin{cases}
+y_1=(a_{11}b_{11}+\cdots+a_{1s}b_{s1})t_1+\cdots+(a_{11}b_{1n}+\cdots+a_{1s}b_{sn})t_n \\
+\cdots \\
+y_m=(a_{m1}b_{11}+\cdots+a_{ms}b_{s1})t_1+\cdots+(a_{m1}b_{1n}+\cdots+a_{ms}b_{sn})t_m
+\end{cases}$ \medskip
+
+这可以看作上面两个线性方程组相乘，也可以将线性方程组表示为矩阵，进行相乘就得到乘积，从而了解矩阵乘积与线性方程组的关系：\medskip
+
+
+$\left(\begin{array}{ccc}
+a_{11} & \cdots & a_{1s} \\
+\vdots & \ddots & \vdots \\
+a_{m1} & \cdots & a_{ms}
+\end{array}\right)_{m\times s}\left(\begin{array}{ccc}
+b_{11} & \cdots & a_{1n} \\
+\vdots & \ddots & \vdots \\
+b_{s1} & \cdots & b_{sn}
+\end{array}\right)_{s\times n}$
+
+$=\left(\begin{array}{ccc}
+a_{11}b_{11}+\cdots+a_{1s}b_{s1} & \cdots & a_{11}b_{1n}+\cdots+a_{1s}b_{sn} \\
+\vdots & \ddots & \vdots \\
+a_{m1}b_{11}+\cdots+a_{ms}b_{s1} & \cdots & a_{m1}b_{1n}+\cdots+a_{ms}b_{sn}
+\end{array}\right)_{m\times n}\text{。}$
+
+\subsection{线性方程组的解}
+
+对于一元一次线性方程：$ax=b$：
+
+\begin{itemize}
+\item 当$a\neq 0$时，可以解得$x=\dfrac{b}{a}$。
+\item 当$a=0$时，若$b\neq 0$时，无解，若$b=0$时，无数解。
+\end{itemize}
+
+当推广到多元一次线性方程组：$Ax=b$，如何求出$x$这一系列的$x$的解？
+
+从数学逻辑上看，已知多元一次方程，有$m$个约束方程，有$n$个未知数，假定$m\leqslant n$。
+
+当$m<n$时，就代表有更多的未知变量不能被方程约束，从而有$n-m$个自由变量，所以就是无数解，解组中其他解可以由自由变量来表示。无穷多解需要一个解来代表其他解，这个解就是\textbf{基础解系}。
+
+当$m=n$时代表约束与变量数量相等，此时又要分三种情况。
+
+当所有的约束条件其中存在线性相关，即一部分约束条件可以由其他约束表示，则代表这部分约束条件是没用的，实际上的约束条件变少，从而情况等于$m<n$，结果是无数解。
+
+当所有的约束条件不存在线性相关，但是一部分约束条件互相矛盾，则约束条件下就无法解出解，从而结果是无实数解。
+
+当所有的约束条件不存在线性相关，且相互之间不存在矛盾情况，这时候才会解出一个实数解，从而结果是有唯一实解。
+
+若使用矩阵来解决线性方程组的问题，其系数矩阵$A_{m\times n}$。
+
+对于$A\neq O$，则$Ax=b$，若存在一个矩阵$B_{n\times n}$类似$\dfrac{1}{a}$，使得$BAx=Bb$，解得$Ex=x=Bb$，这个$B$就是$A$的逆矩阵。
+
+对于$A=O$即不可逆，需要判断$b$是否为0，若不是则无实数解，若是则无穷解，这种判断需要用到增广矩阵，需要用到矩阵的秩判断。
+
+取自由变量时必须要保证取完后的矩阵行列式不为0，否则自由变量不能表示其他向量。
+
+\subsection{线性方程组的矩阵解表示}
+
+已知对于线性方程组$\begin{cases}
+a_{11}x_1+\cdots+a_{1n}x_n=b_1 \\
+\cdots \\
+a_{m1}x_1+\cdots+a_{mn}x_n=b_n
+\end{cases}$。
+
+按乘积表示为$A_{m\times n}x_{n\times 1}=b_{m\times 1}$，然后将$A$按列分块，$x$按行分块：\medskip
+
+$(a_1,a_2,\cdots,a_n)\left(\begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{array}\right)=b\text{，}\left(\begin{array}{c}
+a_{11} \\
+a_{21} \\
+\vdots \\
+a_{m1}
+\end{array}\right)x_1+\cdots+\left(\begin{array}{c}
+a_{1n} \\
+a_{2n} \\
+\vdots \\
+a_{mn}
+\end{array}\right)x_n=\left(\begin{array}{c}
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{array}\right)\text{。}$
+
+这三种都是解的表示方法。
+
+\section{具体线性方程}
+
+\subsection{齐次方程组}
+
+即$Ax=0$。其中$A$有$m$行$n$列。
+
+\subsubsection{有解条件}
+
+必有一个零解。
+
+有解条件讨论是否列满秩问题，即方程组是否能约束全部变量。
+
+对系数矩阵进行行变换，若$r(A)=m$，即使行满秩若$m<n$则列不满秩，那么还是无法约束所有变量；若$r(A)=n$，即使行不满秩但是列满秩，所以还是能约束所有变量。
+
+当$r(A)=n$时，即$\alpha_1,\alpha_2,\cdots,\alpha_n$线性无关，则方程组有唯一零解。
+
+当$r(A)=r<n$时，即$\alpha_1,\alpha_2,\cdots,\alpha_n$线性相关，则方程具有无穷多个非零解，具有$n-r$个线性无关解（自由变量）。
+
+\subsubsection{解的性质}
+
+若$A\xi_1=0$，$A\xi_2=0$，则$A(k_1\xi_1+k_2\xi_2)=0$。
+
+\subsubsection{解的结构}
+
+基础解系\textcolor{violet}{\textbf{定义：}}假如$\xi_1,\xi_2,\cdots,\xi_{n-r}$满足：\ding{172}是方程组$Ax=0$的解；\ding{173}线性无关；\ding{174}方程组$Ax=0$的任一解均可由$\xi_1,\xi_2,\cdots,\xi_{n-r}$线性表出，则称$\xi_1,\xi_2,\cdots,\xi_{n-r}$为$Ax=0$的\textbf{基础解系}。
+
+当$r(A)<n$时讨论基础解系。
+
+通解\textcolor{violet}{\textbf{定义：}}设$\xi_1,\xi_2,\cdots,\xi_{n-r}$是$Ax=0$的基础解系，则$k_1\xi_1+k_2\xi_2+\cdots+k_{n-r}\xi_{n-r}$是方程组$Ax=0$的通解，$k_1,k_2,\cdots,k_{n-r}$为任意常数。
+
+\subsubsection{求解过程}
+
+\begin{enumerate}
+\item 将系数矩阵$A$作为\textbf{初等行变换}后化为阶梯形矩阵或最简阶梯形矩阵$B$，因为初等行变换将方程组化为同解方程组，所以$Ax=0$与$Bx=0$同解，只需解$Bx=0$，设$r(A)=r$。其中$A$为$m$行$n$列，$m$为约束方程组个数，$n$为变量个数。
+\item 在$B$中按列找到一个秩为$r$的子矩阵，即在每排阶梯都选出一列组合成子矩阵，则剩余列位置的未知数就是自由变量。（极大线性无关组）
+\item 按基础解析定义求出$\xi_1,\xi_2,\cdots,\xi_{n-r}$，并写出通解。
+\end{enumerate}
+
+\textbf{例题：}求齐次线性方程组$\left\{\begin{array}{l}
+x_1+x_2-3x_4-x_5=0 \\
+x_1-x_2+2x_3-x_4=0 \\
+4x_1-2x_2+6x_3+3x_4-4x_5=0 \\
+2x_1+4x_2-2x_3+4x_4-7x_5=0
+\end{array}\right.$的通解。
+
+解：系数矩阵$A=\left(\begin{array}{ccccc}
+1 & 1 & 0 & -3 & -1 \\
+1 & -1 & 3 & -1 & 0 \\
+4 & -2 & 6 & 3 & -4 \\
+2 & 4 & -2 & 4 & -7
+\end{array}\right)$，然后对其行变换，得到：
+
+$=\left(\begin{array}{ccccc}
+1 & 1 & 0 & -3 & -1 \\
+0 & -2 & 2 & 2 & 1 \\
+0 & 0 & 0 & 3 & -1 \\
+0 & 0 & 0 & 0 & 0
+\end{array}\right)=\left(\begin{array}{ccccc}
+1 & 0 & 1 & 0 & -\dfrac{7}{6} \medskip \\
+0 & 1 & -1 & 0 & -\dfrac{5}{6} \medskip \\
+0 & 0 & 0 & 1 & -\dfrac{1}{3} \\
+0 & 0 & 0 & 0 & 0
+\end{array}\right)$，$r(A)=3$。
+
+然后找子矩阵，第一台阶选$C_1$，第二台阶选$C_2$或$C_3$，第三台阶选$C_4$或$C_5$，随便找一个，如$(C_1,C_2,C_4)$为子矩阵，则$C_3$，$C_5$所代表的未知数$x_3$，$x_5$就是自由变量。
+
+所以选择两个分量$\xi_1=(\xi_{11},\xi_{12},\xi_{13},\xi_{14},\xi_{15})^T$和$\xi_2=(\xi_{21},\xi_{22},\xi_{23},\xi_{24},\xi_{25})^T$作为基础解系。
+
+因为此时选择$x_3$，$x_5$为自由变量，所以$x_3$和$x_5$所对应的$\xi_{13}$、$\xi_{15}$、$\xi_{23}$、$\xi_{25}$可以任意取，但是为了保证秩为2，所以让$\xi_{13}=1$、$\xi_{15}=0$、$\xi_{23}=0$、$\xi_{25}=1$。这四个分量组成的矩阵线性无关，原矩阵线性无关，延长矩阵线性无关，从而$\xi_1$和$\xi_2$必然线性无关。
+
+所以此时已经给定两组解，一种是$\xi_1$的$x_3=1$，$x_5=0$，另一种是$\xi_2$的$x_3=0$，$x_5=1$，这样就只有三个未知数和三个方程，分别代入$A$矩阵所代表的方程组中（代入行阶梯矩阵就可以，不用代入最简行阶梯矩阵）：
+
+$\left\{\begin{array}{l}
+1\cdot x_1+1\cdot x_2+0\cdot x_3-3\cdot x_4-1\cdot x_5=0 \\
+0\cdot x_1-2\cdot x_2+2\cdot x_3+2\cdot x_4+1\cdot x_5=0 \\
+0\cdot x_1+0\cdot x_2+0\cdot x_3+3\cdot x_4-1\cdot x_5=0
+\end{array}\right.$，分别代入：
+
+$\xi_1$：$\left\{\begin{array}{l}
+1\cdot x_1+1\cdot x_2+0\cdot1-3\cdot x_4-1\cdot0=0 \\
+0\cdot x_1-2\cdot x_2+2\cdot1+2\cdot x_4+1\cdot0=0 \\
+0\cdot x_1+0\cdot x_2+0\cdot1+3\cdot x_4-1\cdot0=0
+\end{array}\right.$，$\xi_1=(-1,1,1,0,0)^T$。
+
+$\xi_2$：$\left\{\begin{array}{l}
+1\cdot x_1+1\cdot x_2+0\cdot0-3\cdot x_4-1\cdot1=0 \\
+0\cdot x_1-2\cdot x_2+2\cdot0+2\cdot x_4+1\cdot1=0 \\
+0\cdot x_1+0\cdot x_2+0\cdot0+3\cdot x_4-1\cdot1=0
+\end{array}\right.$，$\xi_2=(7,5,0,2,6)^T$。\medskip
+
+所以通解为$k_1\xi_1+k_2\xi_2=k_1(-1,1,1,0,0)^T+k_2(7,5,0,2,6)^T$。
+
+\subsection{非齐次方程组}
+
+即$Ax=b$，$b$为不全为0的列向量。
+
+\subsubsection{有解条件}
+
+$A=[\alpha_1,\alpha_2,\cdots,\alpha_n]$，其中$\alpha_j=[a_{1j},a_{2j},\cdots,a_{mj}]^T$，$j=1,2,\cdots,n$。
+
+当$r(A)\neq r([A,b])$时（$r(A)+1=r([A,b])$），即$b$不能被$A$线性表出，则方程组无解。
+
+当$r(A)=r([A,b])=n$时，即$b$能被$A$线性表出，$A$线性无关，$[A,b]$线性相关，矩阵列满秩，则方程组有唯一解。
+
+当$r(A)=r([A,b])=r<n$时，即$b$能被$A$线性表出，$A$线性相关，矩阵列降秩，则方程组有无穷多解。
+
+\subsubsection{解的性质}
+
+若$\eta_1,\eta_2,\eta$是非齐次线性方程组$Ax=b$的解，$\xi$是对应齐次线性方程组$Ax=0$的解，则：
+
+\ding{172}$\eta_1-\eta_2$是$Ax=0$的通解。
+
+\ding{173}$k\xi+\eta$是$Ax=b$的解。
+
+\subsubsection{求解过程}
+
+将系数矩阵和常数项矩阵合并为一个增广矩阵，对增广矩阵进行行变换变为阶梯形矩阵，求出对应齐次线性方程组的通解，最后假设一个非齐次线性方程组的特解。
+
+\begin{enumerate}
+\item 写出$Ax=b$的导出方程组$Ax=0$并求出其通解$k_1\xi_1+k_2\xi_2+\cdots+k_{n-r}\xi_{n-r}$。
+\item 求出$Ax=b$的一个特解$\eta$。
+\item $Ax=b$的通解为$k_1\xi_1+k_2\xi_2+\cdots+k_{n-r}\xi_{n-r}+\eta$。
+\end{enumerate}
+
+\textbf{例题：}求非齐次线性方程组$\left\{\begin{array}{l}
+x_1+5x_2-x_3-x_4=-1 \\
+x_1-2x_2+x_3+3x_4=3 \\
+3x_1+8x_2-x_3+x_4=1 \\
+x_1-9x_2+3x_3+7x_4=7
+\end{array}\right.$的通解。
+
+解：对方程组提取出增广矩阵并进行行变换：\medskip
+
+$\left(\begin{array}{c:c}
+\begin{matrix}
+1 & 5 & -1 & -1 \\
+1 & -2 & 1 & 3 \\
+3 & 8 & -1 & 1 \\
+1 & -9 & 3 & 7
+\end{matrix}&
+\begin{matrix}
+-1 \\
+3 \\
+1 \\
+7
+\end{matrix}
+\end{array}\right)=\left(\begin{array}{c:c}
+\begin{matrix}
+1 & 5 & -1 & -1 \\
+0 & -7 & 2 & 4 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{matrix}&
+\begin{matrix}
+-1 \\
+4 \\
+0 \\
+0
+\end{matrix}
+\end{array}\right)$。\medskip
+
+然后求齐次方程的通解：找两列作为子矩阵，如$x_1$，$x_2$，则$x_3$，$x_4$作为自由变量，设两个$\xi_1=(\xi_{11},\xi_{12},1,0)^T$和$\xi_2=(\xi_{21},\xi_{22},0,1)^T$。
+
+解得$\xi_1=(-3,2,7,0)^T$，$\xi_2=(-13,4,0,7)^T$（为了得到整数通解都乘了7）。
+
+通解为$k_1\xi_1+k_2\xi_2=k_1(-3,2,7,0)^T+k_2(-13,4,0,7)^T$。
+
+然后求其非齐次的特解，让两个自由变量为0减少计算，即$\eta=(\eta_1,\eta_2,0,0)^T$代入方程得到$\eta=\left(\dfrac{13}{7},-\dfrac{4}{7},0,0\right)^T$。
+
+所以通解为$k_1(-3,2,7,0)^T+k_2(-13,4,0,7)^T+\left(\dfrac{13}{7},-\dfrac{4}{7},0,0\right)^T$。
+
+\textcolor{orange}{注意：}通解的向量可以同乘一个数，因为其表示的是一个关系而不是具体数，但是特解不能同乘一个数，因为其表示的是一个具体的数。
+
+\subsection{克拉默法则}
+
+克拉默法则本来是矩阵中的运算法则，但是与方程组有更密切的关系，所以放到线性方程组中。
+
+\textcolor{aqua}{\textbf{定理：}}若$Ax=b$的系数矩阵$A$的行列式$\vert A\vert\neq0$，则方程有唯一解，且$x_i=\dfrac{\vert A_i\vert}{\vert A\vert}$，其中$A_i$为把系数矩阵$A$的第$i$列的元素用方程组右侧的常数项代替后所得到的$n$阶矩阵。
+
+\section{抽象线性方程}
+
+\subsection{解的判定}
+
+$Ax=0$，总有解，至少有零解。
+
+$A_{m\times n}x=0$，当$r(A)=n$时，只有零解；当$r(A)<n$时，无穷多解。
+
+$A_{m\times n}x=b$时，当$r(A)=r([A,b])+1\neq r([A,b])$时，无解；当$r(A)=r([A,b])=n$时，有唯一解；当$r(A)=r([A,b])=r<n$时，无穷多解。
+
+当$Ax=0$只有零解时，$r(A)=n$，当$Ax=0$有无穷多解时，$r(A)=r<n$，都不能判定$r(A)$与$r([A,b])$的关系，若以$Ax=b$可能有解也可能无解。
+
+当$Ax=b$有唯一解时，$r(A)=r([A,b])=n$，所以$Ax=0$列满秩，只有零解。
+
+当$Ax=b$有无穷多解时，$r(A)=r([A,b])=r<n$，则$Ax=0$有无穷多解。
+
+当$A$行满秩，则$r(A)=r([A,b])$，则$Ax=\beta$必有解，因为原来无关，延长无关。
+
+所以已知非齐次解情况能推出齐次解情况，但是反之不能。
+
+\subsection{解的性质}
+
+非齐次通解=齐次的通解+非齐次一个特解。
+
+\textbf{例题：}$r(A_{4\times4})=2$，$\eta_1,\eta_2,\eta_3$为$Ax=b$的三个解向量，其中具有如下关系：
+
+$\left\{\begin{array}{l}
+\eta_1-\eta_2=(-1,0,3,-4)^T \\
+\eta_1+\eta_2=(3,2,1,-2)^T \\
+\eta_3+2\eta_2=(5,1,0,3)^T
+\end{array}\right.$，求$Ax=b$的通解。
+
+解：$s=n-r(A)=4-2=2$，所以通解的基础解系中有两个分量$\xi_1$和$\xi_2$。
+
+所以需要解$Ax=0$，又存在三个解向量，所以$A\eta_1=A\eta_2=A\eta_3=b$，所以$A(\eta_1-\eta_2)=0$，所以$\eta_1-\eta_2=(-1,0,3,-4)^T$就是其中一个解，所以令$\xi_1=\eta_1-\eta_2=(-1,0,3,-4)^T$。
+
+然后根据所给出的$\eta$进行凑，$A(\eta_1+\eta_2)=2b=A(3,2,1,-2)^T$，$A(\eta_3+2\eta_2)=3b=A(5,1,0,3)^T$。所以$3A(\eta_1+\eta_2)-2A(\eta_3+2\eta_2)=0$，所以$A(3(\eta_1+\eta_2)-2(\eta_3+2\eta_2))=0$，所以令$\xi_2=3(\eta_1+\eta_2)-2(\eta_3+2\eta_2)=(-1,4,3,-12)^T$。
+
+最后找一个特解，$\because A(\eta_1+\eta_2)=2b$，$\therefore A\left(\dfrac{\eta_1+\eta_2}{2}\right)=b$，$\dfrac{\eta_1+\eta_2}{2}=\left(\dfrac{3}{2},1,\dfrac{1}{2},-1\right)^T$就是一个特解。
+
+所以通解为$k_1(-1,0,3,-4)^T+k_2(-1,4,3,-12)^T+\left(\dfrac{3}{2},1,\dfrac{1}{2},-1\right)^T$
+
+\subsection{基础解系}
+
+对于$A_{m\times n}x=0$，$r(A)=r$，若向量组$\alpha_1,\alpha_2,\cdots,\alpha_s$满足：\ding{172}$A\alpha_i=0$，$i=1,2,\cdots,s$；\ding{173}$\alpha_1,\alpha_2,\cdots,\alpha_s$线性无关；\ding{174}$s=n-r$，则称$\alpha_1,\alpha_2,\cdots,\alpha_s$为$Ax=0$的基础解系。
+
+\textbf{例题：}设$\xi_1,\xi_2,\xi_3$是方程组$Ax=0$的基础解系，则下列向量组也是方程组$Ax=0$的基础解系的是()。
+
+$A.\xi_1-\xi_2$，$\xi_2-\xi_3$，$\xi_3-\xi_1$\qquad$B.\xi_1+\xi_2$，$\xi_2-\xi_3$，$\xi_3+\xi_1$
+
+$C.\xi_1+\xi_2-\xi_3$，$\xi_1+2\xi_2+\xi_3$，$2\xi_1+3\xi_2$\qquad$D.\xi_1+\xi_2$，$\xi_2+\xi_3$，$\xi_3+\xi_1$
+
+解：需要判断基础解系是否线性无关，需要对应的行列式值非0。\medskip
+
+对于$D$：$(\xi_1+\xi_2$，$\xi_2+\xi_3$，$\xi_3+\xi_1)=(\xi_1,\xi_2,\xi_3)\left(\begin{array}{ccc}
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & 1
+\end{array}\right)\neq0$，所以$D$线性无关，从而为基础解系。
+
+\textbf{例题：}设$\xi_1=[1,-2,3,1]^T$，$\xi_2=[2,0,5,-2]^T$是齐次线性方程组$A_{3\times4}x=0$的解，且$r(A)=2$，则下列向量中是其解向量的是()。
+
+$A.\alpha_1=[1,-2,3,2]^T$\qquad$B.\alpha_2=[0,0.5,-2]^T$
+
+$C.\alpha_3=[-1,-6,-1,7]^T$\qquad$D.\alpha_4=[1,6,1,6]^T$
+
+解：若$\xi_1$和$\xi_2$为$Ax=0$的基，所以$\xi_1$和$\xi_2$应该能表示其解向量。
+
+所以将$\xi_1$和$\xi_2$与$\alpha_1,\alpha_2,\alpha_3,\alpha_4$分别联立为矩阵，进行初等行变换，查看是否有解，即新增广矩阵必须秩为2。
+
+$ABD$选项增广矩阵的秩都为3，所以不能表示，而只有$C$的为2，所以$C$可以表示。
+
+\subsection{系数矩阵列向量与解}
+
+对于齐次方程而言，其解是让$A$的线性组合为零向量时线性组合的系数，对于非齐次而言解是$b$由$A$线性表出的表出系数。
+
+所以方程的解就是描述列向量组之间数量关心的系数。
+
+\textbf{例题：}已知$A=[\alpha_1,\alpha_2,\alpha_3,\alpha_4]$，其中$\alpha_1,\alpha_2,\alpha_3,\alpha_4$是四维列向量，且$\alpha_1=2\alpha_2+\alpha_3$，$r(A)=3$，若$\beta=\alpha_1+2\alpha_2+3\alpha_3+4\alpha_4$，求线性方程组$Ax=\beta$的通解。
+
+解：$\because\alpha_1=2\alpha_2+\alpha_3$，$1\alpha_1-2\alpha_2-1\alpha_3+0\alpha_4=0$，即$A(1,-2,-1,0)^T=0$。
+
+又$r(A_{4\times4})=4$，$s=n-r(A)=4-3=1$，$\therefore\xi=(1,-2,-1,0)^T$。
+
+所以特解为$\beta$的系数：$(1,2,3,4)^T$，通解为$k(1,-2,-1,0)^T+(1,2,3,4)^T$。
+
+\section{公共解}
+
+\subsection{待定系数法}
+
+\begin{enumerate}
+\item 求两个方程组解的交集部分。可以联立两个方程求解。
+\item 求出$A_{m\times n}x=0$的通解$k_1\xi_1+k_2\xi_2+\cdots+k_s\xi_s$，这些$k$本来是独立的，然后代入$B_{m\times n}x=0$，求出$k_i(i=1,2,\cdots,s)$之间的关系，再代回$A_{m\times n}x=0$的通解中就得到公共解。
+\item 给出$A_{m\times n}x=0$的通解与$B_{m\times n}x=0$的通解联立：$k_1\xi_1+k_2\xi_2+\cdots+k_s\xi_s=l_1\eta_1+l_2\eta_2+\cdots+l_s\eta_s=0$，能解出$k_i$和$l_i$。
+\end{enumerate}
+
+这种方法可以求出公共解，不过比较麻烦。
+
+如果已经给出原方程的基础解系而没有给出矩阵，则这个方法解出公共解较好。
+
+\textbf{例题：}已知线性方程组$A=\left\{\begin{array}{l}
+x_1+x_2=0 \\
+x_2-x_4=0
+\end{array}\right.$，$B=\left\{\begin{array}{l}
+x_1-x_2+x_3=0 \\
+x_2-x_3+x_4=0
+\end{array}\right.$，求方程组的公共解。
+
+解：$A=\left(\begin{array}{cccc}
+1 & 1 & 0 & 0 \\
+0 & 1 & 0 & -1
+\end{array}\right)$，$B=\left(\begin{array}{cccc}
+1 & -1 & 1 & 0 \\
+0 & 1 & -1 & 1
+\end{array}\right)$。\medskip
+
+两个秩都为2，选择前两个分量为基子矩阵，后两个为通解分量。
+
+$\xi_1=(0,0,1,0)^T$，$\xi_2=(-1,1,0,1)^T$，$\eta_1=(0,1,1,0)^T$，$\eta_2=(-1,-1,0,1)^T$。
+
+$k_1\xi_1+k_2\xi_2=k_1(0,0,1,0)^T+k_2(-1,1,0,1)^T=(-k_2,k_2,k_1,k_2)^T$。
+
+$l_1\eta_1+l_2\eta_2=l_1(0,1,1,0)^T+l_2(-1,-1,0,1)^T=(-l_2,l_1-l_2,l_1,l_2)^T$。
+
+令$(-k_2,k_2,k_1,k_2)^T=(-l_2,l_1-l_2,l_1,l_2)^T$，所以解得$2k_2=k_1$。
+
+公共解为$(-k_2,k_2,2k_2,k_2)^T=k_2(-1,1,2,1)^T$。
+
+\subsection{矩阵法}
+
+要求$A$和$B$的非零公共解，即求联立矩阵$\left(\begin{array}{c}
+A \\
+B
+\end{array}\right)x=0$的非零解。对这个矩阵求出基础解系。
+
+如果直接给出矩阵，则这种方法可以不用求出基础解系就能得到公共解。
+
+\section{同解}
+
+\subsection{性质}
+
+若$A_{m\times n}x=0$和$B_{s\times n}x=0$有完全相同的解，就是同解方程组。
+
+$\therefore r(A)=r(B)=r([A,B]^T)$。即行向量组等价。
+
+$A$与$A^TA$同解。
+
+\subsection{代入法}
+
+先求一个方程组的通解，然后把这个通解代入到第二个方程组中，不用管$k$的取值（因为$k$为任意数，所以直接令其为0）直接求出对应参数。
+
+\textbf{例题：}线性方程组$A=\left\{\begin{array}{l}
+x_1+3x_3+5x_4=0 \\
+x_1-x_2-2x_3+2x_4=0 \\
+2x_1-x_2+x_3+3x_4=0
+\end{array}\right.$，在其基础上加一个方程$B=\left\{\begin{array}{l}
+x_1+3x_3+5x_4=0 \\
+x_1-x_2-2x_3+2x_4=0 \\
+2x_1-x_2+x_3+3x_4=0 \\
+4x_4+ax_2+bx_3+13x_4=0
+\end{array}\right.$，$ab$满足什么条件，$AB$是同解方程组。
+
+解：$B$在$A$的基础上增加一个方程，即多增加了约束，从而$B$的解一定为$A$的解的子集。所以只要$A$的解也满足$B$的解就是同解方程组。
+
+$A=\left(\begin{array}{cccc}
+1 & 0 & 3 & 5 \\
+0 & -1 & -5 & -3 \\
+0 & 0 & 0 & -4
+\end{array}\right)$，$s=n-r=4-3=1$，$\xi=(-3,-5,1,0)^T$，$k\xi=k(-3,-5,1,0)^T=(-3k,-5k,k,0)^T$。
+
+所以这个对于$B$而言必然满足前三行，若要整体满足，就也要满足$B$的第四行，所以直接代入第四行：$4(-3k)+a(-5k)+bk+0=k(-12-5a+b)=0$。
+
+又$k$为任意数，所以$-12-5a+b=0$，即$b=5a+12$。
+
+\textbf{例题：}设$A$为$n$阶实矩阵，$A^T$是$A$的转置矩阵，证明方程组$\Lambda:Ax=0$和$\Upsilon:A^TAx=0$是同解方程组。
+
+证明：若$\gamma$为$\Lambda$的唯一解，则$A\gamma=0$，则$A^TA\gamma=A^T0=0$，$\therefore\gamma$也为$\Upsilon$的解。
+
+若$\eta$为$\Upsilon$的唯一解，则$A^TA\eta=0$，$\eta^TA^TA\eta=(A\eta)^TA\eta=\Vert A\eta\Vert^2=0$，所以$A\eta=0$，从而$\eta$也为$\Lambda$的解。
+
+所以同解，所以其两个矩阵的基解等价。
+
+\textcolor{aqua}{\textbf{定理：}}$r(A)=r(A^T)=r(A^TA)=r(AA^T)$。
+
+主要包括特征值与特征向量，相似矩阵，对角矩阵。
+
+这里的矩阵都是指方阵。
+
+\section{特征值与特征向量}
+
+\subsection{定义}
+
+设$A$是$n$阶矩阵，$\lambda$是一个数，若存在$n$维非零列向量$\xi\neq0$，使得$A\xi=\lambda\xi$，则$\lambda$是$A$的特征值，$\xi$是$A$的对应于特征值$\lambda$的特征向量。
+
+\subsection{性质}
+
+\subsubsection{特征值性质}
+
+设$A=(a_{ij})_{n\times n}$，$\lambda_i$（$i=1,2,\cdots,n$）是$A$的特征值，则：
+
+\begin{itemize}
+\item $\sum\limits_{i=1}^n\lambda_i=\sum\limits_{i=1}^n=tr(A)$。主对角线元素和即矩阵的迹。
+\item $\prod\limits_{i=1}^n\lambda_i=\vert A\vert$。
+\item $f(A)\xi=f(\lambda)\xi$。
+\item $A^{-1}\xi=\dfrac{1}{\lambda}\xi$。
+\item $A^*\alpha=\dfrac{\vert A\vert}{\lambda}\xi$。
+\end{itemize}
+
+\subsubsection{特征向量性质}
+
+\begin{itemize}
+\item $k$重特征值$\lambda$至多只有$k$个线性无关的特征向量。一共有$k$个特征向量。
+\item 若$\xi_1$和$\xi_2$是$A$的属于不同特征值$\lambda_1$和$\lambda_2$的特征向量，则$\xi_1$和$\xi_2$线性无关。
+\item 若$\xi_1$和$\xi_2$是$A$的属于同特征值$\lambda$的特征向量，则$k_1\xi_1+k_2\xi_2$（$k_1k_2$不同时为0）仍是$A$的属于特征值$\lambda$的特征向量。
+\item 若$A$可逆，则$A$、$A^{-1}$、$A^*$的特征向量相同。
+\end{itemize}
+
+证明性质二：利用定义法，首先$A\xi_1=\lambda_1\xi_1$，$A\xi_2=\lambda_2\xi_2$。
+
+要证明两个特征向量线性无关，则证明$k_1\xi_1+k_2\xi_2=0$时$k_1=k_2=0$。
+
+$Ak_1\xi_1+Ak_2\xi_2=k_1\lambda_1\xi_1+k_2\lambda_1\xi_2=0$。又$k_1\xi_1+k_2\xi_2=\lambda_1k_1\xi_1+\lambda_1k_2\xi_2=0$，
+
+两式相减：$k_2(\lambda_2-\lambda_1)\xi_2=0$，且$\lambda_1\neq\Lambda_2$，$\xi_2\neq0$，$\therefore k_2=0$。
+
+代入$k_1\xi_1+k_2\xi_2=0$，即$k_1\xi_1=0$，又$\xi_1\neq0$，$\therefore k_1=0$。
+
+\subsubsection{特征值与特征向量}
+
+\begin{itemize}
+\item 若特征值不相等，则特征向量线性无关。
+\item 若特征值相等，则特征向量可能线性相关也可能线性无关。
+\end{itemize}
+
+性质一是因为特征向量的性质而来。从几何来理解，特征向量表示的是矩阵变换中只有伸缩变换没有旋转变换的方向向量，特征值是这个方向的伸缩系数，一个方向当然只有一个伸缩系数。
+
+\subsubsection{运算性质}
+
+$\because\lambda\xi-A\xi=0$，$\therefore(\lambda E-A)\xi=0$，又$\xi\neq0$，$\therefore(\lambda E-A)x=0$有非零解。
+
+从而$\lambda E-A$所表示的方阵线性相关，为降秩，从而$\vert\lambda E-A\vert=0$。
+
+其中$n-r(\lambda E-A)$的值就是特征向量中自由变量的个数。
+
+$\vert\lambda E-A\vert=0$也称为特征方程或是特征多项式，解出的$\lambda_i$就是特征值。
+
+将$\lambda_i$代回原方程求解。即$(\lambda E-A)x=0$有非零解，齐次方程只有唯一零解和无穷非零解两种结果，所以这里求出来的就是无穷非零解，所以只用求出解的基础解系即可。
+
+根据极大线性无关组解出通解就是$\xi$，非线性无关组的变量设为自由变量（不能被约束的）用来表示其他变量。
+
+如果没有行阶梯型，则对于一列全是0的变量就是自由变量。
+
+\subsection{运算}
+
+\subsubsection{具体型}
+
+\textcolor{aqua}{\textbf{定理：}}若矩阵$A$为对角线矩阵，则特征值为对角线上元素。
+
+\textcolor{aqua}{\textbf{定理：}}若$n$阶矩阵$A$行或列对应成比例，即$r(A)=1$，则$\lambda_1=\lambda_2=\cdots=\lambda_{n-1}=0$，$\lambda_n=tr(A)$。
+
+\textcolor{orange}{注意：}特征向量因为要求不为0，所以需要$k\neq0$。
+
+\textcolor{orange}{注意：}得到多重特征值时要全部写出，$\lambda_1=\lambda_2=\cdots=\lambda_n=\lambda$。
+
+\textbf{例题：}求$A=\left(\begin{array}{ccc}
+2 & -2 & 0 \\
+-2 & 1 & -2 \\
+0 & -2 & 0
+\end{array}\right)$的特征值与特征向量。
+
+$\vert\lambda E-A\vert=\left|\begin{array}{ccc}
+\lambda_2 & 2 & 0 \\
+2 & \lambda-1 & 2 \\
+0 & 2 & \Lambda
+\end{array}\right|=(\lambda-2)(\lambda-1)\lambda-4\lambda-4(\lambda-2)=\lambda^3-3\lambda^2-6\lambda+8=(\lambda+2)(\lambda-1)(\lambda-4)=0$。
+
+$\therefore\lambda_1=-2$，$\lambda_2=1$，$\lambda=4$。
+
+当计算$\vert\lambda E-A\vert$时往往难点就是从多项式中解出$\lambda$，对于$f(\lambda)=a_k\lambda^k+\cdots+a_1\lambda+a_0=0$，可以使用试根法：
+
+\begin{enumerate}
+\item 若$a_0=0$，$\lambda=0$就是其根。
+\item 若$a_k+\cdots+a_1+a_0=0$，$\lambda=1$就是其根。
+\item 若$a_0+a_2+\cdots+a_{2k}=a_1+a_3\cdots+a_{2k-1}$，$\lambda=-1$就是其根。
+\item 若$a_k=1$，且系数都是整数，则有理根是整数，且均为$a_0$的因子。
+\end{enumerate}
+
+对于第四个，如$\lambda^3-4\lambda^2+3\lambda+2=0$，2的因子为$\pm1$和$\pm2$，分别代入得到一根为2。
+
+\subsubsection{抽象型}
+
+\begin{enumerate}
+\item 利用定义，寻找$A\xi=\lambda\xi$，$\xi\neq0$，$\lambda$是$A$的特征值，$\xi$是$A$属于$\lambda$的特征向量。
+\item 根据$\vert\lambda E-A\vert=0$计算出对应的$\lambda$值，再计算$\xi$的值。
+\end{enumerate}
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+矩阵 & $A$ & $kA$ & $A^k$ & $f(A)$ & $A^{-1}$ & $A^*$ & $P^{-1}AP$ & $A^T$ \\ \hline
+特征值 & $\lambda$ & $k\lambda$ & $\lambda^k$ & $f(\lambda)$ & $\lambda^{-1}$ & $\vert A\vert/\lambda$ & $\lambda$ & $\lambda$ \\ \hline
+特征向量 & $\xi$ & $\xi$ & $\xi$ & $\xi$ & $\xi$ & $\xi$ & $P^{-1}\xi$ & 无关 \\
+\hline
+\end{tabular} \medskip
+
+\textbf{例题：}设$A$为$n$阶矩阵，且$A^T=A$（此时$A$就是幂等矩阵）。
+
+(1)求$A$的特征值可能的取值。
+
+(2)证明$E+A$是可逆矩阵。
+
+(1)解：$\because A^2=A$，$\therefore f(A)=A^2-A=0$，$f(\lambda)=\lambda^2-\lambda=0$，$\lambda_1=0$，$\lambda_2=1$。
+
+值得注意的是这里求的$\lambda$是可能的取值，因为不同的矩阵特征值不同，只有通过$\vert\lambda E-A\vert=0$的值才是真实的特征值。
+
+\section{相似理论}
+
+特征值和特征向量应用于矩阵的相似。
+
+\subsection{矩阵相似}
+
+\subsubsection{定义}
+
+\textcolor{violet}{\textbf{定义：}}设$A,B$是两个$n$阶方阵，若存在$n$阶可逆矩阵$P$，使得$P^{-1}AP=B$，则称$A$相似于$B$，记为$A\sim B$。
+
+其实就是对矩阵进行初等变换。
+
+\subsubsection{性质}
+
+相似的性质：
+
+\begin{enumerate}
+\item 反身性：$A\sim A$。
+\item 对称性：若$A\sim B$，则$B\sim A$。
+\item 传递性：若$A\sim B$，$B\sim C$，则$A\sim C$。
+\end{enumerate}
+
+相似与其他部分的关系。
+
+\begin{itemize}
+\item 若$A\sim B$，$r(A)=r(B)$，$\vert A\vert=\vert B\vert$，$\vert\lambda E-A\vert=\vert\lambda E-B\vert$，$tr(A)=tr(B)$，$AB$具有相同的特征值。但是反之不能推出。
+\item 若$A\sim B$，$AB\sim BA$，$A^2=B^2$。
+\item 若$A\sim B$，$A^m\sim B^m$，$f(A)\sim f(B)$。
+\item 若$A\sim B$，且$A$可逆，则$A^{-1}\sim B^{-1}$，$f(A^{-1})\sim f(B^{-1})$。
+\item 若$A\sim B$，$A^T\sim B^T$，$A^*\sim B^*$。
+\end{itemize}
+
+\subsection{可逆矩阵相似对角化}
+
+\subsubsection{定义}
+
+\textcolor{violet}{\textbf{定义：}}设$n$阶矩阵$A$，若存在$n$阶可逆矩阵$P$，使得$P^{-1}AP=\Lambda$，其中$\Lambda$为对角矩阵（纯量阵，即对角线元素不全为0，其他元素全为0），则称$A$可\textbf{相似对角化}，记为$A\sim\Lambda$，称$\Lambda$是$A$的\textbf{相似标准形}。
+
+为什么要选择$\Lambda$？，因为对角矩阵计算非常简单，只需要对对角线元素进行运算就可以了。
+
+\subsubsection{对角化条件}
+
+$\because P^{-1}AP=\Lambda$，$AP=P\Lambda$，将$P$拆解为列向量组合：
+
+$A(\xi_1,\xi_2,\cdots,\xi_n)=(\xi_1,\xi_2,\cdots,\xi_n)\left(\begin{array}{cccc}
+\lambda_1 \\
+& \lambda_2 \\
+& & \ddots \\
+& & & \lambda_n
+\end{array}\right)$
+
+$(A\xi_1,A\xi_2,\cdots,A\xi_n)=(\lambda_1\xi_1,\lambda_2\xi_2,\cdots,\lambda_n\xi_n)$，$A\xi_i=\lambda_i\xi_i$，$i=1,2,\cdots,n$。
+
+由于$P$可逆，从而$\xi$线性无关，$\xi\neq0$，$\xi$为特征向量，$\lambda$是特征值。
+
+$A\sim\Lambda$的充要条件是：\ding{172}$A$有$n$个线性无关的特征向量；\ding{173}$A$对应每个$k_i$重特征值都有$k_i$个线性无关的特征向量。
+
+$A\sim\Lambda$的充分条件是：\ding{172}$n$解矩阵$A$有$n$个不同的特征值；\ding{173}$A$为实对称方阵。（$A$可相似对角化不能反推这两个结论）
+
+\textbf{例题：}判断$A=\left(\begin{array}{ccc}
+1 & -2 & 1 \\
+2 & -4 & 2 \\
+1 & -2 & 1
+\end{array}\right)$是否可以相似对角化。
+
+解：因为$A$，对应行成比例，所以$\lambda_1=\lambda_2=0$，$\lambda_3=1-4+1=-2$。
+
+有两个不同的特征值，无法判断有多少个不同的特征向量，将特征值代回到$(\lambda E-A)x=0$。首先代入0：
+
+$(0E-A)x=0$，$Ax=0$，$\left(\begin{array}{ccc}
+1 & -2 & 1 \\
+2 & -4 & 2 \\
+1 & -2 & 1
+\end{array}\right)=\left(\begin{array}{ccc}
+1 & -2 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\right)$，$s=n-r=2$，所以有两个基础解系向量。
+
+所以一共有三个线性无关的特征向量，从而可以相似对角化。
+
+\subsubsection{步骤}
+
+\begin{enumerate}
+\item 求出$A$的所有特征值$\lambda$。
+\item 求出$A$的所有$\lambda$的特征向量$\xi$。
+\item 令$P=(\xi_1,\xi_2,\cdots,\xi_n)$，则$P^{-1}AP=\Lambda$。（$\xi$线性无关，$\vert P\vert\neq0$，$P$可逆）
+\end{enumerate}
+
+\textbf{例题：}设$A=\left(\begin{array}{ccc}
+2 & 2 & -2 \\
+2 & 5 & -4 \\
+-2 & -4 & 5
+\end{array}\right)$，求可逆矩阵$P$，使得$P^{-1}AP=\Lambda$。
+
+解：$\vert\lambda E-A\vert=\left|\begin{array}{ccc}
+\lambda-2 & -2 & 2 \\
+2 & \lambda+5 & -4 \\
+-2 & -4 & \lambda+5
+\end{array}\right|=0$，$(\lambda-1)^2(\lambda-10)=0$。
+
+$\therefore\lambda_1=\lambda_2=1$，$\lambda_3=10$。
+
+当$\lambda_1=\lambda_2=1$时，$(E-A)x=0$，$\left|\begin{array}{ccc}
+-1 & -2 & 3 \\
+2 & 6 & -4 \\
+-2 & -4 & 6
+\end{array}\right|$，$\xi_1=(-2,1,0)^T$，$\xi_2=(2,0,1)^T$。同理代入$\lambda_3=10$，$(10E-A)x=0$，$\xi_3=(1,2,-2)^T$。
+
+令$P=(\xi_1,\xi_2,\xi_3)=\left(\begin{array}{ccc}
+-2 & 2 & 1 \\
+1 & 0 & 2 \\
+0 & 1 & -2
+\end{array}\right)$，使得$P^{-1}AP=\left(\begin{array}{ccc}
+1 \\
+& 1 \\
+& & 10
+\end{array}\right)$。
+
+\subsection{实对称矩阵相似对角化}
+
+由相似对角化的充分条件可知，实对称矩阵必然可以相似对角化。
+
+\subsubsection{正交}
+
+\textcolor{violet}{\textbf{定义：}}若$\alpha=(a_1,a_2,\cdots,a_n)$，$\beta=(b_1,b_2,\cdots,b_n)$，则内积$(\alpha,\beta)=a_1b_1+a_2b_2+\cdots+a_nb_n$。
+
+所以内积是一个数值。
+
+单位化是保持向量方向不变，将其长度化为1。
+
+正交化是指将线性无关向量系转化为正交系的过程。
+
+\subsubsection{施密特正交化}
+
+将一个线性无关向量组变为一个标准正交向量组。
+
+对于线性无关向量组$\alpha_1,\alpha_2,\cdots,\alpha_n$，令$\beta_1=\alpha_1$，$\beta_2=\alpha_2-\dfrac{<\alpha_2,\beta_1>}{<\beta_1,\beta_1>}\beta_1$，$\beta_3=\alpha_3-\dfrac{<\alpha_3,\beta_1>}{<\beta_1,\beta_1}\beta_1-\dfrac{<\alpha_3,\beta_2>}{<\beta_2,\beta_2>}\beta_2$，$\cdots$，$\beta_n=\alpha_n-\dfrac{<\alpha_n,\beta_1>}{<\beta_1,\beta_1>}\beta_1-\dfrac{<\alpha_n,\beta_2>}{<\beta_2,\beta_2>}\beta_2-\cdots-\dfrac{<\alpha_n,\beta_{n-1}}{<\beta_{n-1},\beta_{n-1}>}\beta_{n-1}$。其中$<n,n>$代表$n,n$的内积。
+
+最后单位化：$\gamma_i=\dfrac{\beta_i}{\Vert\beta_i\Vert}$。
+
+\subsubsection{定义}
+
+\textcolor{violet}{\textbf{定义：}}$A^T=A$则$A$就是对称矩阵，若$A$的元素都是实数，则$A$是实对称矩阵。
+
+\begin{itemize}
+\item $A$是实对称矩阵，则$A$的特征值是实数，特征向量是实向量。
+\item $A$是实对称矩阵，则其属于不同特征值的特征向量相互正交（线性无关）。
+\item $A$是实对称矩阵，必然相似于对角矩阵，必与$n$个线性无关的特征向量$\xi_1,\xi_2,\cdots,\xi_n$，即必有可逆矩阵$P=[\xi_1,\xi_2,\cdots,\xi_n]$使得$P^{-1}AP=\Lambda$，且存在正交矩阵$Q$，使得$Q^{-1}AQ=Q^TAQ=\Lambda$，所以$A$与$\Lambda$正交相似。（正交：$A^TA=E$）
+\end{itemize}
+
+证明性质二：已知实对称矩阵$A^T=A$。
+
+令$Ax_1=\lambda_1x_1$，$Ax_2=\lambda_2x_2$，$\lambda_1\neq\lambda_2$。对于第一个式子左乘$x_2^T$：
+
+$x_2^TAx_1=x_2^T\lambda_1x_1$，$x_2^TA^Tx_1=\lambda_1x_2^Tx_1$，$(Ax_2)^Tx_1=\lambda_1x_2^Tx_1$，代入$Ax_2=\lambda_2x_2$：
+
+$(\lambda_2x_2)^Tx_1=\lambda_1x_2^Tx_1$，$\lambda_2x_2^Tx_1=\lambda_1x_2^Tx_1$，$(\lambda_2-\lambda_1)x_2^Tx_1=0$，$x_2^Tx_1=0$。
+
+即$(x_2,x_1)=0$，从而$x_1$与$x_2$正交。
+
+\subsubsection{步骤}
+
+对于实对称矩阵，一定存在$P$，所以一般而言还会考求正交单位化的$Q$，步骤如下：
+
+\begin{enumerate}
+\item 求出$A$的所有特征值$\lambda$。
+\item 求出$A$的所有$\lambda$的特征向量$\xi$。
+\item 将$(\xi_1,\xi_2,\cdots,\xi_n)$正交化、单位化为$(\eta_1,\eta_2,\cdots,\eta_n)$。
+\item 令$Q=(\eta_1,\eta_2,\cdots,\eta_n)$，则$Q^{-1}AQ=Q^TAQ=\Lambda$。
+\end{enumerate}
+
+\textbf{例题：}设$A=\left(\begin{array}{ccc}
+2 & 2 & -2 \\
+2 & 5 & -4 \\
+-2 & -4 & 5
+\end{array}\right)$，求正交矩阵$Q$，使得$Q^{-1}AQ=\Lambda$。\medskip
+
+解：这个题基本上跟上面的例题一致，只是将可逆矩阵改成了正交矩阵。
+
+所以得到三个特征向量：$\xi_1=(-2,1,0)^T$，$\xi_2=(2,0,1)^T$，$\xi_3=(1,2,-2)^T$。
+
+实对称矩阵不同特征值的特征向量必然相互正交，从而$\xi_1\perp\xi_3$，$\xi_2\perp\xi_3$。
+
+而$\xi_1$与$\xi_2$特征值相同从而不一定正交，$(\xi_1,\xi_2)=-4\neq0$，所以并不正交。
+
+令$\eta_1=\xi_1=(-2,1,0)^T$，$\eta_2=\xi_2-\dfrac{(\xi_2,\eta_1)}{(\eta_1,\eta_1)}\eta_1=(2,0,1)^T-\dfrac{-4}{5}(-2,1,0)^T$。
+
+$\therefore\eta_2=\left(\dfrac{2}{5},\dfrac{4}{5},1\right)^T$，取$\eta_2=(2,4,5)^T$，$\eta_1=(-2,1,0)^T$，$\eta_3=\xi_3=(1,2,-2)^T$。
+
+单位化$\eta_1'=\dfrac{\sqrt{5}}{5}(-2,1,0)^T$，$\eta_2'=\dfrac{\sqrt{5}}{15}(2,4,5)^T$，$\eta_3'=\dfrac{1}{3}(1,2,-2)^T$。
+
+令$Q=(\eta_1',\eta_2',\eta_3')$，使得$Q^{-1}AQ=Q^TAQ=\Lambda$。
+
+\section{二次型}
+
+\subsection{定义}
+
+$n$元变量$x_1,x_2,\cdots,x_n$的二次齐次多项式：
+
+$
+\begin{array}{cr}
+f(x_1,x_2,\cdots,x_n)= & a_{11}x_1^2+2a_{12}x_1x_2+\cdots+2a_{1n}x_1x_n \\
+& +a_{22}x_2^x+\cdots+2a_{2n}x_2x_n \\
+& \cdots \\
+& +a_{nn}x_n^2
+\end{array}
+$
+
+这就是\textbf{$n$元二次型}，简称\textbf{二次型}。
+
+$\because x_ix_j=x_jx_i$，令$a_{ij}=a_{ji}$（$i,j=1,2,\cdots,n$），则$2a_{ij}x_ix_j=a_{ij}x_ix_j+a_{ji}x_jx_i$：
+
+$f(x_1,x_2,\cdots,x_n)=a_{11}x_1^2+a_{12}x_1x_2+\cdots+a_{1n}x_1x_n+a_{21}x_2x_1+a_{22}x_2^2+a_{2n}x_2x_n+\cdots+a_{n1}x_nx_1+a_{n2}x_nx_2+\cdots+a_{nn}x_n^2$，这个式子就是完全展开式。
+
+$f(x_1,x_2,\cdots,x_n)=\sum\limits_{i=1}^n\sum\limits_{j=1}^na_{ij}x_ix_j$，这个就是和式。
+
+\subsection{矩阵表示}
+
+二次型可以用矩阵来表示，即$f(x)=x^TAx$。其中$x$是列向量。
+
+矩阵表示的重点就是找到中间的$A$，$A$是$f$的二次型矩阵。
+
+方法是：$A$的主对角线元素$a_{ii}$是$x_i^2$的对应系数，$a_{ij}$与$a_{ji}$是混合项$x_ix_j$的系数的一半。
+
+如一个二次型$f(x_1,x_2,x_3)=2x_1^2+5x_2^2+5x_3^2+4x_1x_2-4x_1x_3-8x_2x_3$
+
+$=(x_1,x_2,x_3)\left(\begin{array}{ccc}
+2 & 2 & -2 \\
+2 & 5 & -4 \\
+-2 & -4 & 5
+\end{array}\right)(x_1,x_2,x_3)^T$。
+
+所以可以发现二次型矩阵就是一个对称矩阵，$A^T=A$，所以只要能写出二次型的就一定存在一个对称矩阵，就一定可以相似对角化。
+
+\section{标准形与规范形}
+
+\textcolor{violet}{\textbf{定义：}}若二次型中只含有平方项，没有混合项（交叉项，即所有交叉项的系数全部为0），形如$d_1x_1^2+d_2x_2^2+\cdots+d_nx_n^2$的二次型就是\textbf{标准形}。
+
+\textcolor{violet}{\textbf{定义：}}若标准形中系数$d_i$仅为1，0，-1，即形如$x_1^2+\cdots+x_p^2-x_{p+1}^2-\cdots-x_{p+q}^2$的二次型称为\textbf{规范形}。
+
+其实二次型的标准形与规范形就是相似理论中的可逆矩阵相似对角化与实对称矩阵相似对角化的方法。
+
+\subsection{合同变换}
+
+\subsubsection{线性变换}
+
+对于$n$元二次型$f(x_1,x_2,\cdots,x_n)$，若令$\left\{\begin{array}{l}
+x_1=c_{11}y_1+c_{12}y_2+\cdots+c_{1n}y_n \\
+x_2=c_{21}y_1+c_{22}y_2+\cdots+c_{2n}y_n \\
+\cdots \\
+x_n=c_{n1}y_1+c_{n2}y_2+\cdots+c_{nn}y_n
+\end{array}\right.$
+
+记$x=(x_1,x_2,\cdots,x_n)$，$C=\left(\begin{array}{cccc}
+c_{11} & c_{12} & \cdots & c_{1n} \\
+c_{21} & c_{22} & \cdots & c_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+c_{n1} & c_{n2} & \cdots & c_{nn}
+\end{array}\right)$，$y=(y_1,y_2,\cdots,y_n)$，则上式写为$x=Cy$称为$y_1,y_2,\cdots,y_n$到$x_1,x_2,\cdots,x_n$的\textbf{线性变换}。
+
+若线性变换的系数矩阵$C$可逆，即$\vert C\vert\neq0$，则称为\textbf{可逆线性变换}。
+
+若$f(x)=x^TAx$，令$x=Cy$，则$f(x)=(Cy)^TA(Cy)=y^T(C^TAC)y$，记$B=C^TAC$，则$f(x)=y^TBy=g(y)$，此时二次型$f(x)=x^TAx$通过线性变换$x=Cy$得到一个新二次型$g(y)=y^TBy$。即将二次型用$x$表示换成用$y$表示。
+
+$x^TAx=y^TBy$这种改变表示方法的变换就是合同变换。
+
+\subsubsection{定义}
+
+\textcolor{violet}{\textbf{定义：}}二次型$f(x)$与$g(y)$的系数矩阵$A$与$B$满足$B=C^TAC$，这种关系就是\textbf{合同变换}。
+
+设$AB$为$n$阶实对称矩阵，若存在可逆矩阵$C$，使得$C^TAC=B$，则称$AB$\textbf{合同}，记为$A\simeq B$，此时$f(x)$与$g(x)$为\textbf{合同二次型}。
+
+若二次型$f(x)=x^TAx$合同与标准形$d_1x_1^2+d_2x_2^x+\cdots+d_nx_n^2$或合同于规范形$x_1^2+\cdots+x_p^2-x_{p+1}^2-\cdots-x_{p+q}^2$，则称$d_1x_1^2+d_2x_2^x+\cdots+d_nx_n^2$为$f(x)$的\textbf{合同标准形}或\textbf{合同规范形}。
+
+\subsubsection{性质}
+
+\begin{enumerate}
+\item 反身性：$A\simeq A$。取$C=E$。
+\item 对称性：$A\simeq B$，$B\simeq A$。$A\simeq B$则$C^TAC=B$，$(C^T)^{-1}C^TACC^{-1}=(C^T)^{-1}BC^{-1}$，$A=(C^{-1})^TAB^{-1}$。
+\item 传递性：$A\simeq B$，$B\simeq C$，$A\simeq C$。
+\item $A\simeq B$，$r(A)=r(B)$。$C^TAC=B$，矩阵左右乘一个可逆矩阵，秩不变。
+\item $A\simeq B$，$A^T=A\Leftrightarrow B^T=B$。$B^T=B$，即$(C^TAC)^T=C^TAC$，$C^TA^TC=C^TAC$，$(C^T)^{-1}C^TA^TCC^{-1}=(C^T)^{-1}C^TACC^{-1}$，$A^T=A$。
+\item $A\simeq B$，$AB$可逆，则$A^{-1}\simeq B^{-1}$。
+\item $A\simeq B$，$A^T\simeq B^T$。
+\end{enumerate}
+
+\subsection{配方法}
+
+也称为拉格朗日配方法。配方法与前面的特征值、相似、正交理论无关，是通过配方找到一个可逆的合同矩阵。
+
+任何二次型均可通过配方法（做可逆线性变换）化为标准形与规范形，即对于任何实对称矩阵$A$，必存在可逆矩阵$C$，使得$C^TAC=\Lambda$，其中：
+
+$\Lambda=\left(\begin{array}{cccc}
+d_1 \\
+& d_2 \\
+& & \ddots \\
+& & & d_n
+\end{array}\right)$或$\Lambda=\left(\begin{array}{ccccccccc}
+A \\
+& B \\
+& & C \\
+\end{array}\right)$，$A=\left(\begin{array}{ccc}
+1 \\
+& \ddots \\
+& & 1 \\
+\end{array}\right)$，$B=\left(\begin{array}{ccc}
+-1 \\
+& \ddots \\
+& & -1 \\
+\end{array}\right)$，$C=\left(\begin{array}{ccc}
+0 \\
+& \ddots \\
+& & 0 \\
+\end{array}\right)$。\medskip
+
+一个二次型可以通过相似对角化来求矩阵$\lambda$和$\xi$来化成标准形或规范形，而也可以通过配方法来更简单得到。
+
+配方法的核心：将某个变量的平方项与其混合项一次性配称一个完全平方。
+
+\subsection{正交变换法}
+
+是对实对称矩阵相似对角化的正交变换的延申。
+
+任何二次型均可通过正交变换法化为标准形（规范形不一定能表示出），即对于任何实对称矩阵$A$，必存在正交矩阵$Q$，使得$Q^TAQ=Q^{-1}AQ=\Lambda$，其中$\Lambda=\left(\begin{array}{cccc}
+\lambda_1 \\
+& \lambda_2 \\
+& & \ddots \\
+& & & \lambda_n
+\end{array}\right)$。
+
+二次型正交变换法基于实对称矩阵相似对角化：
+
+\begin{enumerate}
+\item 求出$A$的所有特征值$\lambda$。
+\item 求出$A$的所有$\lambda$的特征向量$\xi$。
+\item 将$(\xi_1,\xi_2,\cdots,\xi_n)$正交化、单位化为$(\eta_1,\eta_2,\cdots,\eta_n)$。
+\item 令$Q=(\eta_1,\eta_2,\cdots,\eta_n)$，则$Q^{-1}AQ=Q^TAQ=\Lambda$。
+\item 因为$f(x)=x^TAx$，代入$x=Qy$，$(Qy)^TA(Qy)=y^TQ^TAQy=y^T\Lambda y$。
+\end{enumerate}
+
+\subsection{惯性定理}
+
+\textcolor{violet}{\textbf{定义：}}无论选取什么样的可逆线性变换，将二次型化为标准形或规范形，其正项个数$p$，负项个数$q$都是不变的，$p$称为\textbf{正惯性指数}，$q$称为\textbf{负惯性指数}。
+
+\textcolor{aqua}{\textbf{定理：}}若二次型的矩阵秩为$r$，则$r=p+q$，可逆线性变换不改变正负惯性指数。
+
+\textcolor{aqua}{\textbf{定理：}}两个二次型或实对称矩阵合同的充要条件是有相同的正负惯性指数，或有相同的秩及正负惯性指数。
+
+\textbf{例题：}设$A=\left(\begin{array}{ccc}
+1 & 2 & 0 \\
+2 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right)$，判断是否与$\left(\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -1
+\end{array}\right)$合同。
+
+解：第一种方法使用配方法，将实对称矩阵化为二次型进行配方，得到$f=(x_1+2x_2)^2-3x_2^2+x_3^2=y_1^2-3y_2^2+y_3^2$，$p=2$，$q=1$。
+
+第二种方式使用特征值法，$\vert\lambda E-A\vert=0$，得到$\lambda_1=1$，$\lambda_2=3$，$\lambda_3=-1$，令$\xi=y$，$f=\lambda_1y_1^2+\lambda_2y_2^2+\lambda_3y_3^2=y_1^2+3y_2^2-y_3^2$，$p=2$，$q=1$。
+
+\textcolor{orange}{注意：}我们会发现$y$前面的系数是不一样的，因为通过配方法得到的系数不一定是特征值，而正交变换法或相似对角化的方法得到的一定是特征值。因为对于配方法，$x=Cy$，$f=(Cy)^TACy=y^TC^TACy=y^T\Lambda y$，这个$\Lambda$是合同的，不满足相似的要求，而对于正交变换$x=Qy$，$f=(Qy)^TAQy=y^TQ^TAQy=y^TQ^{-1}AQy=y^T\Lambda y$，因为$Q$选用的不仅是可逆矩阵$C$，更是正交矩阵，从而即合同又相似，从而得到的$\Lambda$是特征值。
+
+因为有两个正系数1和一个负系数-1，根据惯性定理，所以与它合同。
+
+\section{正定二次型}
+
+\subsection{定义}
+
+\textcolor{violet}{\textbf{定义：}}$n$元二次型$f(x_1,x_2,\cdots,x_n)=x^TAx$，若任意$x=(x_1,x_2,\cdots,x_n)^T\neq0$均有$x^TAx>0$，则称$f$为\textbf{正定二次型}，对应矩阵$A$为\textbf{正定矩阵}。
+
+若令一个正定二次型等于某个正数，则对于空间就是一个封闭曲面。
+
+\subsection{性质}
+
+$n$元二次型$f=x^TAx$正定的充要条件是：
+
+\begin{itemize}
+\item 对于任意$x\neq0$，有$x^TAx>0$。（定义）
+\item $f$的正惯性指数$p=n$，即所有系数全为正。
+\item 存在可逆矩阵$D$，使得$A=D^TD$。
+\item $A\simeq E$。
+\item $A$的特征值$\Lambda_i>0$（$i=1,2,\cdots,n$）。
+\item $A$的全部顺序主子式均大于0。
+\end{itemize}
+
+若$C^TAC=E$，则$A=(C^T)^{-1}EC^{-1}=(C^{-1})^TC^{-1}=D^TD$。
+
+设$A=(a_{ij})_{n\times n}$，则$\vert A_k\vert=\left|\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1k} \\
+a_{21} & a_{22} & \cdots & a_{2k} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{k1} & a_{k2} & \cdots & a_{kk}
+\end{array}\right|$称为$n$阶矩阵$A$的\textbf{$k$阶顺序（左上角）主子式}。
+
+$n$元二次型$f=x^TAx$正定的必要条件是：
+
+\begin{itemize}
+\item $a_{ii}>0$（$i=1,2,\cdots,n$）。
+\item $\vert A\vert>0$。
+\end{itemize}
+
+\subsection{判定}
+
+\subsubsection{具体型}
+
+\begin{enumerate}
+\item 判定主子式是否全部大于0。
+\item 求特征值是否全部大于0。
+\item 配方法判定正惯性指数是否全为$n$。
+\item 定义法，证明$\forall x\neq0$，$x^TAx>0$，即$f>0$。
+\item 找到可逆矩阵$D$，使得$A=D^TD$。
+\end{enumerate}
+
+主要使用前面三种方法。
+
+\textbf{例题：}判别二次型$f(x_1,x_2,x_3)=2x_1^2+2x_2^2+2x_3^2+2x_1x_2+2x_1x_3+2x_2x_3$的正定性。
+
+解：根据题目写出二次型矩阵：$A=\left(\begin{array}{ccc}
+2 & 1 & 1 \\
+1 & 2 & 1 \\
+1 & 1 & 2
+\end{array}\right)$
+
+第一种方法：2>0，$\left|\begin{array}{cc}
+2 & 1 \\
+1 & 2
+\end{array}\right|>0$，$\vert A\vert>0$，所以正定。
+
+第二种方法：$\vert\lambda E-A\vert=0$，所以$\lambda_1=4$，$\lambda_2=\lambda_3=1$，所以正定。
+
+第三种方法：通过配方法，将$f=2\left(x_1+\dfrac{x_2}{x}+\dfrac{x_3}{2}\right)^2+\dfrac{3}{2}\left(x_2+\dfrac{1}{3}x_3\right)+\dfrac{4}{3}x_3^2$，$p=3$，所以正定。
+
+第四种方法：将$f$进行配方，$f=(x_1+x_2)^2+(x_2+x_3)^2+(x_3+x_1)^2\geqslant0$，所以要证明$f>0$对于$\forall x\neq0$成立。
+
+假设$f=0$，则$x_1+x_2=0$，$x_2+x_3=0$，$x_3+x_1=0$，则$x_1=x_2=x_3=0$，所以$x\neq0$时$f>0$。
+
+第五种方法：将$f$进行配方，$f=(x_1+x_2)^2+(x_2+x_3)^2+(x_3+x_1)^2$
+
+$=(x_1+x_2,x_2+x_3,x_3+x_1)(x_1+x_2,x_2+x_3,x_3+x_1)^T$
+
+$=(x_1+x_2,x_2+x_3,x_3+x_1)\left(\begin{array}{ccc}
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+0 & 1 & 1
+\end{array}\right)\left(\begin{array}{ccc}
+1 & 1 & 0 \\
+0 & 1 & 1 \\
+1 & 0 & 1
+\end{array}\right)\left(\begin{array}{c}
+x_1 \\
+x_2 \\
+x_3
+\end{array}\right)=x^TD^TDx$
+
+$=x^TAx$，所以找到了这个$D$，从而正定。
+
+\subsubsection{抽象型}
+
+对于抽象型二次型正定问题，首先要表明$A$是对称的，即$A^T=A$；基本的方法就是判定特征值$\lambda$是否全部为正。
+
+\textcolor{aqua}{\textbf{定理：}}若$A$正定，则充要条件是$A^T$正定，$A^{-1}$正定，充分条件是$A^*$正定，即$A$正定则$A^*$正定，但是$A^*$正定不一定$A$正定。
+
+证明：$\because$对称矩阵，所以$A^T=A$，所以$AA^T$等价，所以是充要条件。
+
+若$A$特征值为$\lambda>0$，则$A^{-1}$的特征值$\dfrac{1}{\lambda}$也全为正，同理也可以反推回去，从而是充要条件。
+
+若$A$特征值为$\lambda>0$，则$A^*$的特征值为$\dfrac{\vert A\vert}{\lambda_i}=\dfrac{\lambda_1\cdots\lambda_n}{\lambda_i}$，若$\lambda_i$全为正则可以推出$\dfrac{\vert A\vert}{\lambda_i}$为正，但是反之若$\dfrac{\vert A\vert}{\lambda_i}$为正，不能推出$\lambda_1\cdots\lambda_n$每一个都是正的。
+
+\end{document}
